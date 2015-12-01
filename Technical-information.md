@@ -2,8 +2,8 @@
 
 **Navigation**
 
-1. [Extracting Instagram's Signature Key](https://github.com/mgp25/Instagram-API/wiki/Technical-information#extracting-instagrams-signature-key)
-2. [Capturing the endpoints]()
+1. [Extracting Instagram's Signature Key](#extracting-instagrams-signature-key)
+2. [Capturing the endpoints](#capturing-the-endpoints)
 
 ## Extracting Instagram's Signature Key
 
