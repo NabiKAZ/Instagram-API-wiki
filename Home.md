@@ -21,3 +21,50 @@ $insta = new Instagram($username, $password);
 ```php
 $insta = new Instagram($username, $password, $debug = false, $IGDataPath = null);
 ```
+
+### Functions 
+
+**Notes:** 
+`$usernameId` is not the username, it's an id (numeric)
+
+All data returned it's an array object
+
+---
+
+- `login()`
+- `logout()`
+- `uploadPhoto($photo, $caption = null)`
+- `editMedia($mediaId, $captionText = "")`
+- `changeProfilePicture($photo)`
+- `removeProfilePicture()`
+- `setPrivateAccount()`
+- `setPublicAccount()`
+- `getUsernameInfo($usernameId)`
+- `getSelfUsernameInfo()`
+- `getRecentActivity()`
+- `getv2Inbox()`
+- `getUserTags($usernameId)`
+- `getSelfUserTags()`
+- `getGeoMedia($usernameId)`
+- `getSelfGeoMedia()`
+- `fbUserSearch($query)`
+- `searchUsers($query)`
+- `searchTags($query)`
+- `getTimeline()`
+- `getUserFeed($usernameId)`
+- `getSelfUserFeed()`
+- `getPopularFeed()`
+- `getUserFollowers($usernameId)`
+- `getSelfUserFollowers()`
+- `getUsersFollowing()`
+- `like($mediaId)`
+- `unlike($mediaId)`
+- `getMediaComments($mediaId)`
+- `setNameAndPhone($name = "", $phone = "")`
+- `getDirectShare()`
+- `backup()`
+- `follow($userId)`
+- `unfollow($userId)`
+- `block($userId)`
+- `unblock($userId)`
+- `getLikedMedia()`
