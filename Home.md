@@ -39,6 +39,7 @@ All data returned it's an array object
 - `removeProfilePicture()`
 - `setPrivateAccount()`
 - `setPublicAccount()`
+- `editProfile($url, $phone, $first_name, $biography, $email, $private)`
 - `getUsernameInfo($usernameId)`
 - `getSelfUsernameInfo()`
 - `getRecentActivity()`
