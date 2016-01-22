@@ -35,6 +35,7 @@ All data returned it's an array object
 - `logout()`
 - `uploadPhoto($photo, $caption = null)`
 - `editMedia($mediaId, $captionText = "")`
+- `deleteMedia($mediaID)`
 - `changeProfilePicture($photo)`
 - `removeProfilePicture()`
 - `setPrivateAccount()`
