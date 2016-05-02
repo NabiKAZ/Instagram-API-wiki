@@ -2,7 +2,7 @@
 
 **Dependencies:**
 
-`gd, curl`
+`gd, curl and ffmpeg`
 
 External info. for **Windows** users: http://php.net/manual/en/install.windows.extensions.php
 
