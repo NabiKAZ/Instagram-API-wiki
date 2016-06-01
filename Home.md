@@ -15,14 +15,17 @@
 - `$IGDataPath`: Custom data storage path (Optional)
 
 ```php
-$insta = new Instagram($username, $password);
+$i = new Instagram($username, $password);
 ```
 
 ```php
-$insta = new Instagram($username, $password, $debug = false, $IGDataPath = null);
+$i = new Instagram($username, $password, $debug = false, $IGDataPath = null);
 ```
 
-### Functions 
+## Functions 
+
+- [Login and switch between accounts](#login-and-switch-between-accounts)
+
 
 **Notes:** 
 `$usernameId` is not the username, it's an id (numeric)
@@ -31,43 +34,338 @@ All data returned it's an array object
 
 ---
 
-- `login()`
-- `logout()`
-- `uploadPhoto($photo, $caption = null)`
-- `uploadVideo($video, $caption = null)`
-- `editMedia($mediaId, $captionText = "")`
-- `deleteMedia($mediaID)`
-- `changeProfilePicture($photo)`
-- `removeProfilePicture()`
-- `setPrivateAccount()`
-- `setPublicAccount()`
-- `editProfile($url, $phone, $first_name, $biography, $email, $private)`
-- `getUsernameInfo($usernameId)`
-- `getSelfUsernameInfo()`
-- `getRecentActivity()`
-- `getv2Inbox()`
-- `getUserTags($usernameId)`
-- `getSelfUserTags()`
-- `getGeoMedia($usernameId)`
-- `getSelfGeoMedia()`
-- `fbUserSearch($query)`
-- `searchUsers($query)`
-- `searchTags($query)`
-- `getTimeline()`
-- `getUserFeed($usernameId)`
-- `getSelfUserFeed()`
-- `getPopularFeed()`
-- `getUserFollowers($usernameId)`
-- `getSelfUserFollowers()`
-- `getUsersFollowing()`
-- `like($mediaId)`
-- `unlike($mediaId)`
-- `getMediaComments($mediaId)`
-- `setNameAndPhone($name = "", $phone = "")`
-- `getDirectShare()`
-- `backup()`
-- `follow($userId)`
-- `unfollow($userId)`
-- `block($userId)`
-- `unblock($userId)`
-- `getLikedMedia()`
+### Login and switch between accounts
+
+**Login and logout**
+
+```php
+$i->login();
+```
+
+I don't recommend logging out.
+```php
+$i->logout();
+```
+
+**Switch account**
+
+```php
+$i->setUser($user2, $passwd2);
+```
+
+### Upload Photo and video
+
+```php
+$i->uploadPhoto($pathToImage, $caption = null);
+```
+
+Video requires ffmpeg
+```php
+$i->uploadVideo($pathToVideo, $caption = null);
+```
+
+### Direct share media to a friend
+
+`$media_id` is a id from an already uploaded media
+```php
+$i->direct_share($media_id, $recipients, $text = null);
+```
+
+### Edit media (change caption)
+
+```php
+$i->editMedia($mediaId, $captionText = '');
+```
+
+### Remove self tag from a media
+
+```php
+$i->removeSelftag($mediaId);
+```
+
+### Get info of an uploaded media
+
+```php
+$i->mediaInfo($mediaId);
+```
+
+### Delete photo or video
+
+```php
+$i->deleteMedia($mediaId);
+```
+
+### Post a comment in a media
+
+```php
+$i->comment($mediaId, $commentText);
+```
+
+### Delete a comment
+
+```php
+$i->deleteComment($mediaId, $commentId);
+```
+
+### Get media comments
+
+```php
+$i->getMediaComments($mediaId);
+```
+
+### Set profile picture and delete profile picture
+
+**Set**
+
+```php
+$i->changeProfilePicture($pathToPicture);
+```
+
+**Delete**
+
+```php
+$i->removeProfilePicture();
+```
+
+### Setting private/public account
+
+**Private**
+
+```php
+$i->setPrivateAccount();
+```
+
+**Public**
+
+```php
+$i->setPublicAccount();
+```
+
+### Get and edit profile data
+
+**Get profile data**
+
+```php
+$i->getProfileData();
+```
+
+**Edit profile data**
+```php
+   * @param string $url
+   *   Url - website. "" for nothing
+   * @param string $phone
+   *   Phone number. "" for nothing
+   * @param string $first_name
+   *   Name. "" for nothing
+   * @param string $email
+   *   Email. Required.
+   * @param int $gender
+   *   Gender. male = 1 , female = 0
+```
+```php
+$i->editProfile($url, $phone, $first_name, $biography, $email, $gender)
+```
+
+### Get username info
+
+```php
+$i->getUsernameInfo($usernameId);
+```
+
+**Get self username info**
+
+```php
+$i->getSelfUsernameInfo();
+```
+
+### Get recent activity (news inbox)
+
+```php
+$i->getRecentActivity();
+```
+
+### Get recent activity from followed users
+
+```php
+$i->getFollowingRecentActivity();
+```
+
+### Get user tags
+
+```php
+$i->getUserTags($usernameId);
+```
+
+**Get user tags**
+
+```php
+$i->getSelfUserTags();
+```
+
+**Get tagged media**
+
+```php
+$i->tagFeed($tag);
+```
+
+**Search tags**
+
+```php
+$i->searchTags($query);
+```
+
+### Get media likers
+
+```php
+$i->getMediaLikers($mediaId);
+```
+
+### Get Geo media
+
+```php
+$i->getGeoMedia($usernameId);
+```
+
+**Get self geomedia**
+
+```php
+$i->getSelfGeoMedia();
+```
+
+### Search users
+
+```php
+$i->searchUsers($query);
+```
+
+**Search exact username**
+
+```php
+$i->searchUsername($usernameName);
+```
+
+### Search users using address book
+
+`$contacts` is an array of contact, each contact has these values: 
+
+- `phone_numbers` which is an array of the numbers the contacts has
+- `first_name` Name of the contact (string)
+- `email_addresses` array of the mails the contact has
+
+```php
+$i->syncFromAdressBook($contacts);
+```
+
+### Get timeline
+
+```php
+$i->getTimeline();
+```
+
+### Get user feed
+
+```php
+ $i->getUserFeed($usernameId, $maxid = null, $count = null)
+```
+
+**Get hastag feed**
+
+```php
+$i->getHashtagFeed($hashtagString, $maxid = null);
+```
+
+### Search Location
+
+```php
+$i->searchLocation($query);
+```
+
+**Get location feed**
+
+```php
+$i->getLocationFeed($locationId, $maxid = null);
+```
+
+### Get self and popular feed
+
+**Self**
+
+```php
+$i->getSelfUserFeed();
+```
+
+**Popular**
+
+```php
+$i->getPopularFeed();
+```
+
+### Get Followings / followers
+
+**Get user followings**
+
+```php
+$i->getUserFollowings($usernameId, $maxid = null);
+```
+
+**Get user followers**
+
+```php
+$i->getUserFollowers($usernameId, $maxid = null);
+```
+
+**Get self user followers**
+
+```php
+$i->getSelfUserFollowers();
+```
+
+**Get self user followings**
+
+```php
+$i->getSelfUserFollowing();
+```
+
+### Like/unlike a video or photo
+
+```php
+$i->like($mediaId);
+```
+
+**unlike**
+
+```php
+$i->unlike($mediaId);
+```
+
+### Backup all your uploaded photos
+
+```php
+$i->backup();
+```
+
+### Follow / Unfollow
+
+**follow**
+
+```php
+$i->follow($userId);
+```
+
+**Unfollow**
+
+```php
+$i->unfollow($userId);
+```
+
+### Block/unblock user
+
+```php
+$i->block($userId);
+```
+
+**unblock**
+
+```php
+$i->unblock($userId);
+```
