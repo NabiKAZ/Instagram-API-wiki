@@ -24,6 +24,12 @@ $i = new Instagram($username, $password, $debug = false, $IGDataPath = null);
 
 ## Functions 
 
+
+**Notes:** 
+`$usernameId` is not the username, it's an id (numeric).
+
+All data returned it's an array object
+
 - [Login and switch between accounts](#login-and-switch-between-accounts)
 - [Upload Photo and video](#upload-photo-and-video)
 - [Direct share media to a friend](#direct-share-media-to-a-friend)
@@ -39,14 +45,20 @@ $i = new Instagram($username, $password, $debug = false, $IGDataPath = null);
 - [Get username info](#get-username-info)
 - [Get recent activity (news inbox)](#get-recent-activity-news-inbox)
 - [Get recent activity from followed users](#get-recent-activity-from-followed-users)
-
-
-
-
-**Notes:** 
-`$usernameId` is not the username, it's an id (numeric)
-
-All data returned it's an array object
+- [Get user tags](#get-user-tags)
+- [Get media likers](#get-media-likers)
+- [Get Geo media](#get-geo-media)
+- [Search users](#search-users)
+- [Search users using address book](#search-users-using-address-book)
+- [Get timeline](#get-timeline)
+- [Get user feed](#fet-user-feed)
+- [Search Location](#search-location)
+- [Get self and popular feed](#get-self-and-popular-feed)
+- [Get Followings / followers](#get-followings--followers)
+- [Like/unlike a video or photo](#like-unlike-a-video-or-photo)
+- [Backup all your uploaded photos](#backup-all-your-uploaded-photos)
+- [Follow / Unfollow](#follow--unfollow)
+- [Block/unblock user](#block-unblock-user)
 
 ---
 
