@@ -25,6 +25,22 @@ $i = new Instagram($username, $password, $debug = false, $IGDataPath = null);
 ## Functions 
 
 - [Login and switch between accounts](#login-and-switch-between-accounts)
+- [Upload Photo and video](#upload-photo-and-video)
+- [Direct share media to a friend](#direct-share-media-to-a-friend)
+- [Edit media (change caption)](#edit-media-change-caption)
+- [Remove self tag from a media](#remove-self-tag-from-a-media)
+- [Get info of an uploaded media](#get-info-of-an-uploaded-media)
+- [Delete photo or video](#delete-photo-or-video)
+- [Post/delete a comment in a media](#post-delete-a-comment-in-a-media)
+- [Get media comments](#get-media-comments)
+- [Set profile picture and delete profile picture](#set-profile-picture-and-delete-profile-picture)
+- [Setting private/public account](#setting-private-public-account)
+- [Get and edit profile data](#get-and-edit-profile-data)
+- [Get username info](#get-username-info)
+- [Get recent activity (news inbox)](#get-recent-activity-news-inbox)
+- [Get recent activity from followed users](#get-recent-activity-from-followed-users)
+
+
 
 
 **Notes:** 
@@ -95,13 +111,13 @@ $i->mediaInfo($mediaId);
 $i->deleteMedia($mediaId);
 ```
 
-### Post a comment in a media
+### Post/delete a comment in a media
 
 ```php
 $i->comment($mediaId, $commentText);
 ```
 
-### Delete a comment
+**delete**
 
 ```php
 $i->deleteComment($mediaId, $commentId);
