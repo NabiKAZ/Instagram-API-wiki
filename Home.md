@@ -40,10 +40,10 @@ All data returned it's an array object
 - [Remove self tag from a media](#remove-self-tag-from-a-media)
 - [Get info of an uploaded media](#get-info-of-an-uploaded-media)
 - [Delete photo or video](#delete-photo-or-video)
-- [Post/delete a comment in a media](#post-delete-a-comment-in-a-media)
+- [Post/delete a comment in a media](#postdelete-a-comment-in-a-media)
 - [Get media comments](#get-media-comments)
 - [Set profile picture and delete profile picture](#set-profile-picture-and-delete-profile-picture)
-- [Setting private/public account](#setting-private-public-account)
+- [Setting private/public account](#setting-privatepublic-account)
 - [Get and edit profile data](#get-and-edit-profile-data)
 - [Get username info](#get-username-info)
 - [Get recent activity (news inbox)](#get-recent-activity-news-inbox)
@@ -61,7 +61,7 @@ All data returned it's an array object
 - [Like/unlike a video or photo](#like-unlike-a-video-or-photo)
 - [Backup all your uploaded photos](#backup-all-your-uploaded-photos)
 - [Follow / Unfollow](#follow--unfollow)
-- [Block/unblock user](#block-unblock-user)
+- [Block/unblock user](#blockunblock-user)
 
 ---
 
