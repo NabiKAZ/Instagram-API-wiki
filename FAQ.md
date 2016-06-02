@@ -5,6 +5,7 @@
 - [How to extract Instagram Signature Key](#how-to-extract-instagram-signature-key)
 - [Instagram has changed my password](#instagram-has-changed-my-password)
 - [Instagram registration doesn't work](#instagram-registration-doesn't-work)
+- [How to get all the users im following](how-to-get-all-the-users-im-following)
 
 ### My photos/videos are removed just after upload
 
@@ -25,3 +26,7 @@ When you login from different locations, to avoid someone gets into your account
 ### Instagram registration doesn't work
 
 It does. Check your code. If your IP is flagged you won't be able to create any account.
+
+### How to get all the users im following
+
+https://github.com/mgp25/Instagram-API/issues/200#issuecomment-223379603
