@@ -351,10 +351,10 @@ $i->getUserFollowers($usernameId, $maxid = null);
 $i->getSelfUserFollowers();
 ```
 
-**Get self user followings**
+**Get self users following**
 
 ```php
-$i->getSelfUserFollowing();
+$i->getSelfUsersFollowing();
 ```
 
 ### Like/unlike a video or photo
