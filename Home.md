@@ -50,6 +50,7 @@ All data returned it's an array object
 - [Get recent activity from followed users](#get-recent-activity-from-followed-users)
 - [Get user tags](#get-user-tags)
 - [Get media likers](#get-media-likers)
+- [Get liked media](#get-liked-media)
 - [Get Geo media](#get-geo-media)
 - [Search users](#search-users)
 - [Search users using address book](#search-users-using-address-book)
@@ -249,6 +250,12 @@ $i->searchTags($query);
 
 ```php
 $i->getMediaLikers($mediaId);
+```
+
+### Get liked media
+
+```php
+$i->getLikedMedia();
 ```
 
 ### Get Geo media
