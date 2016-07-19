@@ -18,11 +18,11 @@
 - `$IGDataPath`: Custom data storage path (Optional)
 
 ```php
-$i = new Instagram($username, $password);
+$i = new \InstagramAPI\Instagram($username, $password);
 ```
 
 ```php
-$i = new Instagram($username, $password, $debug = false, $IGDataPath = null);
+$i = new \InstagramAPI\Instagram($username, $password, $debug = false, $IGDataPath = null);
 ```
 
 ## Functions 
