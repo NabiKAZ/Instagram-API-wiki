@@ -4,7 +4,7 @@
 - [Uploading videos doesnt work](#uploading-videos-doesnt-work)
 - [How to extract Instagram Signature Key](#how-to-extract-instagram-signature-key)
 - [Instagram has changed my password](#instagram-has-changed-my-password)
-- [Instagram registration doesn't work](#instagram-registration-doesn't-work)
+- [Instagram registration doesn't work](#instagram-registration-doesnt-work)
 - [How to get all the users im following](#how-to-get-all-the-users-im-following)
 
 ### My photos/videos are removed just after upload
