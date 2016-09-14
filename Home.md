@@ -10,19 +10,86 @@
 **Frequently Asked Questions:** [F.A.Q.](https://github.com/mgp25/Instagram-API/wiki/FAQ)
 
 
-### Constructor
+## Constructor
 
-- `$username`:   Instagram's username
-- `$password`:   Instagram's password
-- `$debug`:      Debug mode (Optional)
-- `$IGDataPath`: Custom data storage path (Optional)
+- `$username`:      Instagram's username
+- `$password`:      Instagram's password
+- `$debug`:         Debug mode (Optional)
+- `$IGDataPath`:    Custom data storage path (Optional)
+- `$truncatedDebug`:Truncates Instagram's responses to 1000 chars in debug log 
 
 ```php
 $i = new \InstagramAPI\Instagram($username, $password);
 ```
 
 ```php
-$i = new \InstagramAPI\Instagram($username, $password, $debug = false, $IGDataPath = null);
+$i = new \InstagramAPI\Instagram($username, $password, $debug = false, $IGDataPath = null, $truncatedDebug = false);
+```
+
+## Login
+
+Once you have initialized InstagramAPI class, you can login:
+```php
+$i->login();
+```
+
+Your session will be stored in `data/username` folder. If you have set any other custom data path, a `data` folder will be created inside it.
+
+```
+InstagramAPI
+|-- src
+|    |-- data 
+|    |    |-- username
+|    |    |    |-- username-cookies.dat
+|    |    |    |-- settings-username.dat
+```
+
+- `username-cookies.dat` contains your session.
+- `settings-username.dat` contains essential information for the API about your account.
+
+Both files are generated automatically by the API.
+
+## Username ID
+
+As you can see while using the API, most of the function requires a param called `$usernameId`. This is an integer that represents a unique id for the username. For example:
+
+`MyUsername` ---> `1959226924`
+
+If you don't know how to obtain this id, don't worry about it, i made a function for that: `getUsernameId`
+
+```php
+$a = $i->getUsernameId('MyUsername');
+```
+
+`$a` now contains `1959226924`
+
+## Managing responses
+
+When you do a request, you can obtain all the information easily as all responses are objects, for example:
+
+```php
+$a = $i->getUsernameInfo($usernameId);
+echo $a->getUsername(); // this will print username of user with id $usernameId 
+```
+
+You can find all responses and functions [here](https://github.com/mgp25/Instagram-API/tree/master/src/http/Response).
+
+## Setting a proxy
+
+**Note:** Using proxys in the API works fine, so if you don't get any response it's because Instagram server is refusing to connect with it.
+
+```php
+$i = new \InstagramAPI\Instagram($username, $password);
+$ip = "http://211.63.185.211";
+$port = "8080";
+$i->setProxy($ip,$port);
+```
+
+or
+```php
+$i = new \InstagramAPI\Instagram($username, $password);
+$ip = "http://211.63.185.211:8080";
+$i->setProxy($ip);
 ```
 
 ## Functions 
