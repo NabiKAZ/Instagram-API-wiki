@@ -17,3 +17,21 @@ For **Linux** users:
 sudo apt-get install php5-gd
 ...
 ```
+
+## Composer
+
+You can install it using composer:
+
+```
+composer require mgp25/instagram-php
+```
+
+or if you want latest commits: 
+
+```
+composer require mgp25/instagram-php
+```
+
+## Dockerfile
+
+Dockerfile available: https://github.com/mgp25/Instagram-API/blob/master/Dockerfile
