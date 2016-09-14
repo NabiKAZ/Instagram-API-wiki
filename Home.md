@@ -92,6 +92,24 @@ $ip = "http://211.63.185.211:8080";
 $i->setProxy($ip);
 ```
 
+## Pagination
+
+Everytime we scroll down in our devices to load more data(followers, photos, conversations...), that's called pagination.
+
+When you get Instagram's response, it could contain a `next_max_id` key, that means there are more data you can load. In order to paginate, you will have to pass that param to the function. Here is an example:
+
+```php
+$a = null;
+do{
+   if(is_null($a))
+         $a = $this->getUserTotalFollowings($usernameId);
+   else 
+         $a =  $this->getUserTotalFollowings($usernameId, $a->getNextMaxId());
+} while(!is_null($a->getNextMaxId()));
+```
+
+Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/master/examples/PaginationExample.php)
+
 ## Functions 
 
 
