@@ -49,6 +49,12 @@ InstagramAPI
 
 Both files are generated automatically by the API.
 
+If you want to manage more accounts at once, you can switch accounts using this:
+
+```php
+$i->setUser($user2, $passwd2);
+```
+
 ## Username ID
 
 As you can see while using the API, most of the function requires a param called `$usernameId`. This is an integer that represents a unique id for the username. For example:
@@ -110,11 +116,43 @@ do{
 
 Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/master/examples/PaginationExample.php)
 
+## Uploading media
+
+### Uploading photos
+`uploadPhoto($photo, $caption = null, $upload_id = null, $customPreview = null, $location = null, $filter = null)`
+
+`$photo` is the path to the photo. ie: `/desktop/cat.jpg`
+
+Keep `$upload_id` as `null`, that is managed automatically by the API.
+
+
+```php
+$i->uploadPhoto($photo, $caption);
+```
+
+### Uploading video
+`uploadVideo($video, $caption = null, $customPreview = null)`
+
+```php
+$i->uploadVideo($photo, $caption);
+```
+
+### Uploading photo to Stories
+`uploadPhotoStory($photo, $caption = null, $upload_id = null, $customPreview = null)`
+
+`$photo` is the path to the photo. ie: `/desktop/cat.jpg`
+
+Keep `$upload_id` as `null`, that is managed automatically by the API.
+
+```php
+$i->uploadPhotoStory($photo, $caption);
+```
+
+
 ## Functions 
 
 
-**Notes:** 
-`$usernameId` is not the username, it's an id (numeric).
+**Note:** Not all functions are listed here 
 
 All data returned it's an array object
 
