@@ -13,7 +13,7 @@ In that case, Instagram has flagged your account/IP as spam, try from a differen
 
 ### Uploading videos doesnt work
 
-It works. Make sure the media is compatible and you have `ffmpeg` installed. More info: https://github.com/mgp25/Instagram-API/wiki/Dependencies
+It works. Make sure the media is compatible (format, size, dimmensions...) and you have `ffmpeg` installed. More info: https://github.com/mgp25/Instagram-API/wiki/Dependencies
 
 ### How to extract Instagram Signature Key
 
@@ -25,8 +25,19 @@ When you login from different locations, to avoid someone gets into your account
 
 ### Instagram registration doesn't work
 
-It does. Check your code. If your IP is flagged you won't be able to create any account.
+It works perfectly. If your IP is flagged you won't be able to create any account. If you receive this as response, you were flagged as spam:
+
+```json
+ {"status": "fail", "feedback_title": "Signup Error", 
+"feedback_message": "Sorry! There\u2019s a problem signing you up right now. 
+Please try again later. We restrict certain content and actions to protect our community. 
+Tell us if you think we made a mistake.", 
+"spam": true, "feedback_action": "report_problem", "feedback_url": 
+"repute/report_problem/instagram_signup/", 
+"feedback_ignore_label": "OK", "message": "feedback_required", 
+"feedback_appeal_label": "Report problem"}
+```
 
 ### How to get all the users im following
 
-https://github.com/mgp25/Instagram-API/issues/200#issuecomment-223379603
+Check this [example](https://github.com/mgp25/Instagram-API/blob/master/examples/PaginationExample.php), it will show you how to get all followers/followings using pagination.
