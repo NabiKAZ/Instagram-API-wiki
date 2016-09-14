@@ -5,7 +5,9 @@
 - [How to extract Instagram Signature Key](#how-to-extract-instagram-signature-key)
 - [Instagram has changed my password](#instagram-has-changed-my-password)
 - [Instagram registration doesn't work](#instagram-registration-doesnt-work)
-- [How to get all the users im following](#how-to-get-all-the-users-im-following)
+- [How to get all the users im following?](#how-to-get-all-the-users-im-following)
+- [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
+- [How can i capture requests?](#how-can-i-capture-requests)
 
 ### My photos/videos are removed just after upload
 
@@ -38,6 +40,14 @@ Tell us if you think we made a mistake.",
 "feedback_appeal_label": "Report problem"}
 ```
 
-### How to get all the users im following
+### How to get all the users im following?
 
 Check this [example](https://github.com/mgp25/Instagram-API/blob/master/examples/PaginationExample.php), it will show you how to get all followers/followings using pagination.
+
+### Are you going to add video view increment?
+
+**No.**
+
+### How can i capture requests?
+
+You can use any proxy you want. Remember to disable cert pinning. If you have any doubt, search in google.
