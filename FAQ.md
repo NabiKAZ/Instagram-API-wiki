@@ -51,3 +51,9 @@ Check this [example](https://github.com/mgp25/Instagram-API/blob/master/examples
 ### How can i capture requests?
 
 You can use any proxy you want. Remember to disable cert pinning. If you have any doubt, search in google.
+
+### checkpoint required
+
+If you get `checkpoint_required` use this script: https://github.com/mgp25/Instagram-API/blob/master/examples/checkpoint.php
+
+Or login to your account using your mobile device, that should fix it.
