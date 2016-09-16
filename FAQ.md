@@ -8,6 +8,7 @@
 - [How to get all the users im following?](#how-to-get-all-the-users-im-following)
 - [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
 - [How can i capture requests?](#how-can-i-capture-requests)
+- [Checkpoint required](#checkpoint-required)
 
 ### My photos/videos are removed just after upload
 
