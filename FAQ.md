@@ -9,6 +9,7 @@
 - [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
 - [How can i capture requests?](#how-can-i-capture-requests)
 - [Checkpoint required](#checkpoint-required)
+- [Im getting Error 500](#im-getting-error-500)
 
 ### My photos/videos are removed just after upload
 
@@ -58,3 +59,7 @@ You can use any proxy you want. Remember to disable cert pinning. If you have an
 If you get `checkpoint_required` use this script: https://github.com/mgp25/Instagram-API/blob/master/examples/checkpoint.php
 
 Or login to your account using your mobile device, that should fix it.
+
+### Im getting Error 500
+
+This is a server internal error, due to some bad configuration, this is **NOT** an API issue, so don't open any issue related to this. If you use a proxy and you get this error, the proxy could be the problem.
