@@ -3,6 +3,7 @@
 * [Technical Information](https://github.com/mgp25/Instagram-API/wiki/Technical-information)
 * [F.A.Q.](https://github.com/mgp25/Instagram-API/wiki/FAQ)
 * [Examples](https://github.com/mgp25/Instagram-API/tree/master/examples)
+* [How to write correctly in Github](https://github.com/mgp25/Instagram-API/wiki/How-to-write-correctly-in-Github)
 * **Getting started**
  * [Constructor](#constructor)
  * [Login](#login)
