@@ -154,8 +154,6 @@ $i->uploadPhotoStory($photo, $caption);
 
 **Note:** Not all functions are listed here 
 
-All data returned it's an array object
-
 - [Login and switch between accounts](#login-and-switch-between-accounts)
 - [Upload Photo and video](#upload-photo-and-video)
 - [Direct share media to a friend](#direct-share-media-to-a-friend)
