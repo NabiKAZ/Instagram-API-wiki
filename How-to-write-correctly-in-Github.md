@@ -16,22 +16,6 @@ $a = "Hola!";
 echo $a;
 ```
 
-### Posting nodes:
-```
-[```xml]
-tx  <presence type="subscribe" to="34*********@s.whatsapp.net"></presence>
-rx  <presence from="34*********@s.whatsapp.net"></presence>
-// Without the above and below brackets!
-[```]
-```
-
-Result:
-
-```xml
-tx  <presence type="subscribe" to="34*********@s.whatsapp.net"></presence>
-rx  <presence from="34*********@s.whatsapp.net"></presence>
-```
-
 ### Posting errors/quotes:
 ```
 [```]
@@ -82,7 +66,7 @@ Result:
 ```
 **My List:**
 - This guide is so cool
-- Welcome to WhatsAPI Official
+- Welcome to Instagram API
 - Other things
 ```
 
@@ -90,7 +74,7 @@ Result:
 
 **My List:**
 - This guide is so cool
-- Welcome to WhatsAPI Official
+- Welcome to Instagram API
 - Other things
 
 ### Posting images:
