@@ -24,7 +24,7 @@ Download: https://github.com/mokhdzanifaeq/arminject
 
 ## Manually
 
-Source: https://mokhdzanifaeq.github.io/extracting-instagram-signature-key-2/
+**Source:** https://mokhdzanifaeq.github.io/2015/09/28/extracting-instagram-signature-key-2/
 
 ### WHAT IS GIKDBG?
 
