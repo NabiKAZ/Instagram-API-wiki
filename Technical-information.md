@@ -3,7 +3,8 @@
 **Navigation**
 
 1. [Extracting Instagram's Signature Key](#extracting-instagrams-signature-key)
-2. [Capturing the endpoints](#capturing-the-endpoints)
+2. [Extracting Instagram's Signature Key using Frida]
+3. [Capturing the endpoints](#capturing-the-endpoints)
 
 ## Extracting Instagram's Signature Key
 
@@ -60,6 +61,36 @@ now when you login to instagram in your android device, the breakpoint will be h
 ![image2](http://i.imgur.com/Hj1oE5V.gif)
 
 now when you login to instagram in your android device, the breakpoint will be hit. the only thing to do now is extracting the key from the memory. we can accomplished that by right clicking on the register memory address that hold the key (in this case it would be r0) and choose Follow in dump from the menu
+
+## Extracting Instagram's Signature Key using Frida
+
+Once pushed `frida-server` to your android device, simply run this script in your computer. Remember that you need to have debugging option enabled in your device.
+
+```python
+import frida
+import sys
+
+session = frida.get_usb_device(1000000).attach("com.instagram.android")
+script = session.create_script("""
+fscrambler = Module.findExportByName(null,"_ZN9Scrambler9getStringESs");
+Interceptor.attach(ptr(fscrambler), {
+   onLeave: function (retval) {
+​​send("key: " + Memory.readCString(retval));
+   }
+});
+""")
+
+def on_message(message, data):
+   print(message)
+
+script.on('message', on_message)
+script.load()
+sys.stdin.read()
+```
+
+**Q:** What is `_ZN9Scrambler9getStringESs`?
+
+**A:** When you look at `libstrings.so`, you will notice a function `getString()` in `getSignatureString(byte[])`. The key for the signature algorithm (HMACSHA256) is fetched via the method `Scrambler::getstring()`.
 
 ## Capturing the endpoints
 
