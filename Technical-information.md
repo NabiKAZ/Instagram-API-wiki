@@ -3,7 +3,7 @@
 **Navigation**
 
 1. [Extracting Instagram's Signature Key](#extracting-instagrams-signature-key)
-2. [Extracting Instagram's Signature Key using Frida]
+2. [Extracting Instagram's Signature Key using Frida](#extracting-instagrams-signature-key-using-frida)
 3. [Capturing the endpoints](#capturing-the-endpoints)
 
 ## Extracting Instagram's Signature Key
