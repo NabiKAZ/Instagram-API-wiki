@@ -79,7 +79,6 @@ You can find all responses and functions [here](https://github.com/mgp25/Instagr
 **Note:** Using proxys in the API works fine, so if you don't get any response it's because Instagram server is refusing to connect with it.
 
 ```php
-$i = new \InstagramAPI\Instagram($username, $password);
 $ip = "http://211.63.185.211";
 $port = "8080";
 $i->setProxy($ip,$port);
@@ -87,7 +86,6 @@ $i->setProxy($ip,$port);
 
 or
 ```php
-$i = new \InstagramAPI\Instagram($username, $password);
 $ip = "http://211.63.185.211:8080";
 $i->setProxy($ip);
 ```
