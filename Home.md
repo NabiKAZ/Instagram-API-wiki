@@ -12,24 +12,18 @@
 
 ## Constructor
 
-- `$username`:      Instagram's username
-- `$password`:      Instagram's password
-- `$debug`:         Debug mode (Optional)
-- `$IGDataPath`:    Custom data storage path (Optional)
-- `$truncatedDebug`:Truncates Instagram's responses to 1000 chars in debug log 
+- `$debug`:         Boolean. Debug mode (Optional)
+- `$truncatedDebug`:Boolean. Truncates Instagram's responses to 1000 chars in debug log  (Optional)
 
 ```php
-$i = new \InstagramAPI\Instagram($username, $password);
-```
-
-```php
-$i = new \InstagramAPI\Instagram($username, $password, $debug = false, $IGDataPath = null, $truncatedDebug = false);
+$i = new \InstagramAPI\Instagram($debug, $truncatedDebug);
 ```
 
 ## Login
 
 Once you have initialized InstagramAPI class, you can login:
 ```php
+$i->setUser($username, $password);
 $i->login();
 ```
 
