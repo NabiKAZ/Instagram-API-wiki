@@ -94,4 +94,16 @@ sys.stdin.read()
 
 ## Capturing the endpoints
 
-You will need a proxy, there are a lot, so use the one you prefer. You will find a lot of information in Google.
+You need to set up a Man-in-the-Middle (MITM) proxy, and tell your device to trust its certificate so that all HTTPS traffic flows through it.
+
+I know for a fact Fiddle works instantly via iOS, but Instagram may use certificate pinning on Android in which case you need to hack the APK. Outside the scope of this project. Google it. Lots of guides exist.
+
+For Android: http://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/ConfigureForAndroid
+
+For iOS: http://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/ConfigureForiOS
+
+And this project itself has some debugging options: Two debug flags in the constructor, and one special one for library developers, set via a public `$i->apiDeveloperDebug = true;` property.
+
+With a proxy and those debugging options enabled, you can easily debug API traffic and contribute to this project!
+
+Good luck.
