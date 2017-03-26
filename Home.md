@@ -16,7 +16,7 @@
 - `$truncatedDebug`:Boolean. Truncates Instagram's responses to 1000 chars in debug log  (Optional)
 
 ```php
-$i = new \InstagramAPI\Instagram($debug, $truncatedDebug);
+$i = new \InstagramAPI\Instagram($debug, $truncatedDebug, $storageConfig = []);
 ```
 
 ## Login
@@ -32,10 +32,10 @@ Your session will be stored in `data/username` folder. If you have set any other
 ```
 InstagramAPI
 |-- src
-|    |-- data 
-|    |    |-- username
-|    |    |    |-- username-cookies.dat
-|    |    |    |-- settings-username.dat
+|-- sessions 
+|    |-- username
+|    |    |-- username-cookies.dat
+|    |    |-- settings-username.dat
 ```
 
 - `username-cookies.dat` contains your session.
@@ -79,15 +79,17 @@ You can find all responses and functions [here](https://github.com/mgp25/Instagr
 **Note:** Using proxys in the API works fine, so if you don't get any response it's because Instagram server is refusing to connect with it.
 
 ```php
-$ip = "http://211.63.185.211";
-$port = "8080";
-$i->setProxy($ip,$port);
-```
+// HTTP proxy needing authentication.
+$i->setProxy('http://user:pass@iporhost:port');
 
-or
-```php
-$ip = "http://211.63.185.211:8080";
-$i->setProxy($ip);
+// HTTP proxy without authentication.
+$i->setProxy('http://iporhost:port');
+
+// Encrypted HTTPS proxy needing authentication.
+$i->setProxy('https://user:pass@iporhost:port');
+
+// Encrypted HTTPS proxy without authentication.
+$i->setProxy('https://iporhost:port');
 ```
 
 ## Pagination
@@ -97,13 +99,12 @@ Everytime we scroll down in our devices to load more data(followers, photos, con
 When you get Instagram's response, it could contain a `next_max_id` key, that means there are more data you can load. In order to paginate, you will have to pass that param to the function. Here is an example:
 
 ```php
-$a = null;
-do{
-   if(is_null($a))
-         $a = $this->getUserTotalFollowings($usernameId);
-   else 
-         $a =  $this->getUserTotalFollowings($usernameId, $a->getNextMaxId());
-} while(!is_null($a->getNextMaxId()));
+    $maxId = null;
+    do {
+        $response = $ig->getSelfUserFollowers($maxId);
+        $followers = array_merge($followers, $response->getUsers());
+        $maxId = $response->getNextMaxId();
+    } while ($maxId !== null);
 ```
 
 Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/master/examples/PaginationExample.php)
@@ -111,33 +112,39 @@ Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/mas
 ## Uploading media
 
 ### Uploading photos
-`uploadPhoto($photo, $caption = null, $upload_id = null, $customPreview = null, $location = null, $filter = null)`
+`uploadTimelinePhoto($photoFile, $metadata)`
 
-`$photo` is the path to the photo. ie: `/desktop/cat.jpg`
-
-Keep `$upload_id` as `null`, that is managed automatically by the API.
-
+`$photoFile` is the path to the photo. ie: `/desktop/cat.jpg`
 
 ```php
-$i->uploadPhoto($photo, $caption);
+$metadata = [
+              'caption' => 'My awesome caption',
+              'location' => $location, // $location must be an instance of Location class
+            ];
+
+// if you want only a caption, you can simply do this:
+
+$metadata = ['caption' => 'My awesome caption'];
+
+$i->uploadTimelinePhoto($photoFile, $metadata);
 ```
 
 ### Uploading video
-`uploadVideo($video, $caption = null, $customPreview = null)`
+`uploadTimelineVideo($videoFile, $metadata)`
 
 ```php
-$i->uploadVideo($photo, $caption);
+$i->uploadTimelineVideo($videoFile, $metadata);
 ```
 
 ### Uploading photo to Stories
-`uploadPhotoStory($photo, $caption = null, $upload_id = null, $customPreview = null)`
+`uploadStoryPhoto($photoFile, $metadata)`
 
-`$photo` is the path to the photo. ie: `/desktop/cat.jpg`
-
-Keep `$upload_id` as `null`, that is managed automatically by the API.
+`$photoFile` is the path to the photo. ie: `/desktop/cat.jpg`
 
 ```php
-$i->uploadPhotoStory($photo, $caption);
+$metadata = ['caption' => 'My awesome caption'];
+
+$i->uploadStoryPhoto($photoFile, $metadata);
 ```
 
 
@@ -201,25 +208,25 @@ $i->setUser($user2, $passwd2);
 ### Upload Photo and video
 
 ```php
-$i->uploadPhoto($pathToImage, $caption = null);
+$i->uploadTimelinePhoto($pathToImage, $caption = null);
 ```
 
 Video requires ffmpeg
 ```php
-$i->uploadVideo($pathToVideo, $caption = null);
+$i->uploadTimelineVideo($pathToVideo, $caption = null);
 ```
 
 ### Direct share media to a friend
 
-`$media_id` is a id from an already uploaded media
+`$mediaId` is a id from an already uploaded media
 ```php
-$i->direct_share($media_id, $recipients, $text = null);
+$i->directShare($recipients, $mediaId, $text = null);
 ```
 
 ### Edit media (change caption)
 
 ```php
-$i->editMedia($mediaId, $captionText = '');
+$i->editMedia($mediaId, $captionText = '', $usertags = null);
 ```
 
 ### Remove self tag from a media
@@ -308,7 +315,7 @@ $i->getProfileData();
    *   Gender. male = 1 , female = 0
 ```
 ```php
-$i->editProfile($url, $phone, $first_name, $biography, $email, $gender)
+$i->editProfile($url, $phone, $firstName, $biography, $email, $gender)
 ```
 
 ### Get username info
@@ -404,13 +411,13 @@ $i->searchUsername($usernameName);
 - `email_addresses` array of the mails the contact has
 
 ```php
-$i->syncFromAdressBook($contacts);
+$i->searchInAddressBook($contacts);
 ```
 
 ### Get timeline
 
 ```php
-$i->getTimeline();
+$i->getTimelineFeed();
 ```
 
 ### Get user feed
