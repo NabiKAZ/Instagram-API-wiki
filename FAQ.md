@@ -10,7 +10,7 @@
 - [How can i capture requests?](#how-can-i-capture-requests)
 - [Checkpoint required](#checkpoint-required)
 - [Im getting Error 500](#im-getting-error-500)
-- [My photo doesn't appear when searching hashtags](my-photo-doesnt-appear-when-searching-hashtags)
+- [My photo doesnt appear when searching hashtags](my-photo-doesnt-appear-when-searching-hashtags)
 
 ### My photos/videos are removed just after upload
 
