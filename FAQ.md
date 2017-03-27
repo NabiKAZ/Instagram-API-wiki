@@ -10,6 +10,7 @@
 - [How can i capture requests?](#how-can-i-capture-requests)
 - [Checkpoint required](#checkpoint-required)
 - [Im getting Error 500](#im-getting-error-500)
+- [My photo doesn't appear when searching hashtags](my-photo-doesnt-appear-when-searching-hashtags)
 
 ### My photos/videos are removed just after upload
 
@@ -63,3 +64,7 @@ Or login to your account using your mobile device, that should fix it.
 ### Im getting Error 500
 
 This is a server internal error, due to some bad configuration, this is **NOT** an API issue, so don't open any issue related to this. If you use a proxy and you get this error, the proxy could be the problem.
+
+### My photo doesn't appear when searching hashtags
+
+This is a known issue and will be fixed eventually, so don't open issues about this.
