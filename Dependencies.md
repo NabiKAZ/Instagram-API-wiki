@@ -2,7 +2,7 @@
 
 **Dependencies:**
 
-`gd, curl and ffmpeg`
+`gd, curl, ffmpeg, mbstring and exif`
 
 External info. for **Windows** users: http://php.net/manual/en/install.windows.extensions.php
 
@@ -10,6 +10,7 @@ For **OS X** users (using ports):
 ```
 sudo port install php56-gd
 sudo port install php56-curl
+...
 ```
 
 For **Linux** users:
