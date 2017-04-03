@@ -1,4 +1,4 @@
-#Frequently Asked Question
+# Frequently Asked Questions
 
 - [My photos/videos are removed just after upload](#my-photosvideos-are-removed-just-after-upload)
 - [Uploading videos doesnt work](#uploading-videos-doesnt-work)
@@ -11,6 +11,9 @@
 - [Checkpoint required](#checkpoint-required)
 - [Im getting Error 500](#im-getting-error-500)
 - [My photo doesnt appear when searching hashtags](#my-photo-doesnt-appear-when-searching-hashtags)
+- [New line in comment doesnt work](#new-line-in-comment-doesnt-work)
+- [Issue getting media likers](#issue-getting-media-likers)
+- [Issue getting followers](#issue-getting-followers)
 
 ### My photos/videos are removed just after upload
 
@@ -68,3 +71,15 @@ This is a server internal error, due to some bad configuration, this is **NOT** 
 ### My photo doesn't appear when searching hashtags
 
 This is a known issue and will be fixed eventually, so don't open issues about this.
+
+### New line in comment doesnt work
+
+See [issue 1118](https://github.com/mgp25/Instagram-API/issues/1118)
+
+### Issue getting media likers
+
+When the media has a lot of likes, only some of the likers will be retrived, the response has a limited likers and **this is a normal behavior, app does the same**
+
+### Issue getting followers
+
+When you try to paginate to get all followers or following of a user, the response could be limited showing only some of the followers / followings, and **this is a normal behavior, app does the same**
