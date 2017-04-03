@@ -4,12 +4,18 @@
 * [F.A.Q.](https://github.com/mgp25/Instagram-API/wiki/FAQ)
 * [Examples](https://github.com/mgp25/Instagram-API/tree/master/examples)
 * [How to write correctly in Github](https://github.com/mgp25/Instagram-API/wiki/How-to-write-correctly-in-Github)
-* **Getting started**
- * [Constructor](#constructor)
- * [Login](#login)
- * [What is usernameId](#username-id)
- * [Managing responses](#managing-responses)
- * [Setting a proxy](#setting-a-proxy)
- * [Pagination](#pagination)
- * [Uploading media](#uploading-media)
- * [Functions](#functions)
+* **[Instagram API Documentation]()**
+  * **[Getting started]()**
+    * [Constructor](#constructor)
+    * [Login](#login)
+    * [Two Factor Login](#two-factor-login)
+    * [Username ID](#username-id)
+    * [Managing responses](#managing-responses)
+    * [Setting a proxy](#setting-a-proxy)
+    * [Pagination](#pagination)
+  * **[Some media functions](#uploading-media)**
+    * [Uploading photos](#uploading-photos)
+    * [Uploading video](#uploading-video)
+    * [Uploading media to Stories](#uploading-media-to-stories)
+    * [Uploading an album](#uploading-an-album)
+    * [Adding tags to a media](#adding-tags-to-a-media)
