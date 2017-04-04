@@ -5,6 +5,7 @@
 1. [Extracting Instagram's Signature Key](#extracting-instagrams-signature-key)
 2. [Extracting Instagram's Signature Key using Frida](#extracting-instagrams-signature-key-using-frida)
 3. [Capturing the endpoints](#capturing-the-endpoints)
+4. [IG Capabilities calculation](#ig-capabilities-calculation)
 
 ## Extracting Instagram's Signature Key
 
@@ -107,3 +108,14 @@ And this project itself has some debugging options: Two debug flags in the const
 With a proxy and those debugging options enabled, you can easily debug API traffic and contribute to this project!
 
 Good luck.
+
+## IG Capabilities calculation
+
+```php
+<?php
+
+$magic; // Hardcoded int inside apk.
+$bytes = unpack("C*", pack("V", $magic));
+$string = implode(array_map("chr", $bytes));
+$igCapabilities = mb_convert_encoding(base64_encode($string), 'US-ASCII');
+```
