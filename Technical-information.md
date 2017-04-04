@@ -6,6 +6,7 @@
 2. [Extracting Instagram's Signature Key using Frida](#extracting-instagrams-signature-key-using-frida)
 3. [Capturing the endpoints](#capturing-the-endpoints)
 4. [IG Capabilities calculation](#ig-capabilities-calculation)
+5. [Logging client events](#logging-client-events)
 
 ## Extracting Instagram's Signature Key
 
@@ -118,4 +119,29 @@ $magic; // Hardcoded int inside apk.
 $bytes = unpack("C*", pack("V", $magic));
 $string = implode(array_map("chr", $bytes));
 $igCapabilities = mb_convert_encoding(base64_encode($string), 'US-ASCII');
+```
+
+## Logging client events
+
+**Note:** Don't open issues related to this. Issue will be closed and locked directly.
+
+This is used for many purposes, mostly used for analytics.
+
+It uses this endpoint `https://graph.instagram.com/logging_client_events` and request looks like this (POST):
+
+```
+message=HERE COMPRESSED DATA&compressed=1&access_token=HERE ACCESS TOKEN&format=json
+```
+
+If you want to see how the data looks like you will need to uncompress it:
+
+```php
+<?php
+
+$message = COMPRESSED DATA;
+$message = str_replace('%2F', '/', str_replace('%2B', '+', $message));
+
+$data = gzuncompress(base64_decode($message));
+
+echo $data;
 ```
