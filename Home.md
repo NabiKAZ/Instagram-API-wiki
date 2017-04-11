@@ -15,6 +15,8 @@ Here is explained basic concepts about how to use the API. All documentation abo
 
 ***
 
+### **Full API documentation [HERE](https://github.com/mgp25/Instagram-API/wiki/API-Documentation#interface-instagramapiexceptioninstagramexception)**
+
 * **[Instagram API Documentation]()**
   * **[Getting started]()**
     * [Constructor](#constructor)
