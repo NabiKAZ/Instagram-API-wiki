@@ -4,6 +4,7 @@
 * [F.A.Q.](https://github.com/mgp25/Instagram-API/wiki/FAQ)
 * [Examples](https://github.com/mgp25/Instagram-API/tree/master/examples)
 * [How to write correctly in Github](https://github.com/mgp25/Instagram-API/wiki/How-to-write-correctly-in-Github)
+* [Full API documentation](https://github.com/mgp25/Instagram-API/wiki/API-Documentation#interface-instagramapiexceptioninstagramexception)
 * **[Instagram API Documentation]()**
   * **[Getting started]()**
     * [Constructor](#constructor)
