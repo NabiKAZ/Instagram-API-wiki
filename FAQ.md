@@ -1,5 +1,8 @@
 # Frequently Asked Questions
 
+- [What does error code XXX mean?](#what-does-error-code-xxx-mean)
+- [Your version of Instagram is out of date](#your-version-of-instagram-is-out-of-date)
+- [What does sentry_block error mean?](#what-does-sentry_block-error-mean)
 - [My photos/videos are removed just after upload](#my-photosvideos-are-removed-just-after-upload)
 - [Uploading videos doesnt work](#uploading-videos-doesnt-work)
 - [How to extract Instagram Signature Key](#how-to-extract-instagram-signature-key)
@@ -14,6 +17,24 @@
 - [New line in comment doesnt work](#new-line-in-comment-doesnt-work)
 - [Issue getting media likers](#issue-getting-media-likers)
 - [Issue getting followers](#issue-getting-followers)
+
+### What does error code XXX mean?
+
+
+- **400**: Bad request. Please check the parameters specified.
+- **403**: The method requires authentication (web client) or the request has been denied by Instagram.
+- **404**: The entity requested is not found (web client) or the endpoint does not exist.
+- **429**: Too many requests. You’re making too many calls.
+
+Instagram may also return other 4XX or 5XX codes.
+
+### Your version of Instagram is out of date.
+
+API is using an outdated version or outdated headers. If you get this message with **this API**, open a new issue.
+
+### What does sentry_block error mean?
+
+This is the response for detected spam/bot behavior. Stop using the api in whatever way that triggered this reponse.
 
 ### My photos/videos are removed just after upload
 
