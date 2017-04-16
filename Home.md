@@ -133,7 +133,7 @@ You can find all responses and functions [here](https://github.com/mgp25/Instagr
 
 ## Setting a proxy
 
-**Note:** Using proxys in the API works fine, so if you don't get any response it's because Instagram server is refusing to connect with it.
+**Note:** Using proxys in the API works fine, so if you don't get any response it's because Instagram's server is refusing to connect with the proxy (or because the proxy doesn't work).
 
 ```php
 // HTTP proxy needing authentication.
@@ -147,7 +147,15 @@ $i->setProxy('https://user:pass@iporhost:port');
 
 // Encrypted HTTPS proxy without authentication.
 $i->setProxy('https://iporhost:port');
+
+// SOCKS5 Proxy needing authentication:
+$i->setProxy('socks5://user:pass@iporhost:port');
+
+// SOCKS5 Proxy without authentication:
+$i->setProxy('socks5://iporhost:port');
 ```
+
+The full list of proxy protocols is available in [the cURL documentation](https://curl.haxx.se/libcurl/c/CURLOPT_PROXY.html).
 
 ## Pagination
 
