@@ -2,7 +2,7 @@
 
 **Dependencies:**
 
-`gd, curl, ffmpeg, mbstring and exif`
+`gd, curl, ffmpeg, ffprobe, mbstring and exif`
 
 External info. for **Windows** users: http://php.net/manual/en/install.windows.extensions.php
 
