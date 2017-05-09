@@ -41,49 +41,56 @@ Here is explained basic concepts about how to use the API. All documentation abo
 - `$storageConfig`: Configuration for the desired user settings storage backend. (Optional)
 
 ```php
-$i = new \InstagramAPI\Instagram($debug, $truncatedDebug, $storageConfig = []);
+$ig = new \InstagramAPI\Instagram($debug, $truncatedDebug, $storageConfig = []);
 ```
 
 If you want to use a mySQL storage:
 
 ```php
-$i = new Instagram(true, true, [
-	"storage"      => "mysql",
-	"dbhost"       => Config::get('myconfig.DB_HOST'),
-	"dbname"   => Config::get('myconfig.DB_DATABASE'),
-	"dbusername"   => Config::get('myconfig.DB_USERNAME'),
-	"dbpassword"   => Config::get('myconfig.DB_PASSWORD'),
+$ig = new \InstagramAPI\Instagram(true, true, [
+	'storage'    => 'mysql',
+	'dbhost'     => 'localhost',
+	'dbname'     => 'mydatabase',
+	'dbusername' => 'root',
+	'dbpassword' => '',
 ]);
 ```
 
 ## Login
 
-Once you have initialized InstagramAPI class, you can login:
+Once you have initialized the InstagramAPI class, you must login to an account. Both of these functions must be called every time. They will set the active user and then login or resume an existing session.
+
 ```php
-$i->setUser($username, $password);
-$i->login();
+$ig->setUser($username, $password);
+$ig->login(); // Will resume if a previous session exists.
 ```
 
-Your session will be stored in `data/username` folder. If you have set any other custom data path, a `data` folder will be created inside it.
+Your sessions will be stored a `sessions/username/` folder by default, if you're using the file-based settings backend. If you set use other custom settings path, a username folder will be created under it. By default, the hierarchy is as follows:
 
 ```
+vendor
+|-- mgp25
+|    |-- instagram-php
+|    |    |-- sessions
+|    |    |    |-- 
 InstagramAPI
 |-- src
 |-- sessions 
 |    |-- username
 |    |    |-- username-cookies.dat
-|    |    |-- settings-username.dat
+|    |    |-- username-settings.dat
 ```
 
-- `username-cookies.dat` contains your session.
-- `settings-username.dat` contains essential information for the API about your account.
+- `username-cookies.dat` contains the cookies for your session.
+- `username-settings.dat` contains important information about your account.
 
 Both files are generated automatically by the API.
 
-If you want to manage more accounts at once, you can switch accounts using this:
+If you want to manage more accounts at once, you can switch accounts by changing the active user and calling `login()` again:
 
 ```php
-$i->setUser($user2, $passwd2);
+$ig->setUser($user2, $passwd2);
+$ig->login();
 ```
 
 ## Two Factor Login
@@ -97,71 +104,72 @@ If you have an account with two factor authentication enabled, you need to login
     if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
         $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
 
-         // I added this line so i could write in the code in CLI.
-         // You can replace this line with the logic you want.
-         // Verification code will be received via SMS.
+         // The "STDIN" lets you paste the code via terminal for testing.
+         // You should replace this line with the logic you want.
+         // The verification code will be sent by Instagram via SMS.
         $verificationCode = trim(fgets(STDIN));
         $ig->twoFactorLogin($verificationCode, $twoFactorIdentifier);
     }
 ```
+
 Example: [twoFactorLogin.php](https://github.com/mgp25/Instagram-API/blob/master/examples/twoFactorLogin.php)
 
 ## Username ID
 
-As you can see while using the API, most of the function requires a param called `$usernameId`. This is a string that represents a unique id for the username. For example:
+As you can see while using the API, most of the functions require a param called `$userId`. This is a string that represents Instagram's unique, internal id for that username. For example:
 
 `MyUsername` ---> `1959226924`
 
 If you don't know how to obtain this id, don't worry about it, you can use `getUsernameId()`.
 
 ```php
-$a = $i->getUsernameId('MyUsername');
+$userId = $ig->getUsernameId('MyUsername');
 ```
 
-`$a` now contains `1959226924`
+`$userId` now contains `1959226924`
 
 ## Managing responses
 
-When you do a request, you can obtain all the information easily as all responses are objects, for example:
+When you do a request, you can obtain all the information very easily since all responses are objects, for example:
 
 ```php
-$a = $i->getUsernameInfo($usernameId);
-echo $a->getUsername(); // this will print username of user with id $usernameId 
+$a = $ig->getUserInfoById($userId);
+echo $a->getUsername(); // this will print username of user with id $userId 
 ```
 
-You can find all responses and functions [here](https://github.com/mgp25/Instagram-API/tree/master/src/http/Response).
+You can find all responses and their object-functions [here](https://github.com/mgp25/Instagram-API/tree/master/src/Response). Note that no objects have any defined functions. The functions are auto-created based on the object properties. For example a property `$username` can be read via `getUsername()`, and a property `$carousel_media` can be read via `getCarouselMedia()`. The list of auto-defined functions is `getX`, `setX`, and `isX`, where `X` is the name of an object property.
 
 ## Setting a proxy
 
-**Note:** Using proxys in the API works fine, so if you don't get any response it's because Instagram's server is refusing to connect with the proxy (or because the proxy doesn't work).
+**Note:** Using proxies in the API works fine, so if you don't get any response it's because Instagram's server is refusing to connect with the proxy (or because the proxy doesn't work).
 
 ```php
 // HTTP proxy needing authentication.
-$i->setProxy('http://user:pass@iporhost:port');
+$ig->setProxy('http://user:pass@iporhost:port');
 
 // HTTP proxy without authentication.
-$i->setProxy('http://iporhost:port');
+$ig->setProxy('http://iporhost:port');
 
 // Encrypted HTTPS proxy needing authentication.
-$i->setProxy('https://user:pass@iporhost:port');
+$ig->setProxy('https://user:pass@iporhost:port');
 
 // Encrypted HTTPS proxy without authentication.
-$i->setProxy('https://iporhost:port');
+$ig->setProxy('https://iporhost:port');
 
 // SOCKS5 Proxy needing authentication:
-$i->setProxy('socks5://user:pass@iporhost:port');
+$ig->setProxy('socks5://user:pass@iporhost:port');
 
 // SOCKS5 Proxy without authentication:
-$i->setProxy('socks5://iporhost:port');
+$ig->setProxy('socks5://iporhost:port');
 ```
 
 The full list of proxy protocols is available in [the cURL documentation](https://curl.haxx.se/libcurl/c/CURLOPT_PROXY.html).
 
 ## Pagination
 
-Everytime we scroll down in our devices to load more data(followers, photos, conversations...), that's called pagination.
+Everytime we scroll down in our devices to load more data (followers, photos, conversations...), that's called pagination.
 
-When you get Instagram's response, it could contain a `next_max_id` key, that means there are more data you can load. In order to paginate, you will have to pass that param to the function. Here is an example:
+When you get Instagram's response, it may contain a `next_max_id` key, which means there is more data you can load. In order to paginate, you will have to pass that param to the function. Here is an example:
 
 ```php
     $maxId = null;
@@ -172,7 +180,7 @@ When you get Instagram's response, it could contain a `next_max_id` key, that me
     } while ($maxId !== null);
 ```
 
-Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/master/examples/PaginationExample.php)
+Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/master/examples/paginationExample.php)
 
 ## Uploading media
 
@@ -188,17 +196,16 @@ $metadata = [
             ];
 
 // if you want only a caption, you can simply do this:
-
 $metadata = ['caption' => 'My awesome caption'];
 
-$i->uploadTimelinePhoto($photoFile, $metadata);
+$ig->uploadTimelinePhoto($photoFile, $metadata);
 ```
 
 ### Uploading video
 `uploadTimelineVideo($videoFile, $metadata)`
 
 ```php
-$i->uploadTimelineVideo($videoFile, $metadata);
+$ig->uploadTimelineVideo($videoFile, $metadata);
 ```
 
 ### Uploading media to Stories
@@ -210,13 +217,13 @@ $i->uploadTimelineVideo($videoFile, $metadata);
 ```php
 $metadata = ['caption' => 'My awesome caption'];
 
-$i->uploadStoryPhoto($photoFile, $metadata);
+$ig->uploadStoryPhoto($photoFile, $metadata);
 ```
 
 Same thing can be done with videos:
 
 ```php
-$i->uploadStoryVideo($videoFile, $metadata);
+$ig->uploadStoryVideo($videoFile, $metadata);
 ```
 
 ### Uploading an album
@@ -243,9 +250,9 @@ $ig->uploadTimelineAlbum($media, ['caption' => $captionText]);
 Example: [uploadAlbum.php](https://github.com/mgp25/Instagram-API/blob/master/examples/uploadAlbum.php)
 
 
-## Adding tags to a media
+## Adding usertags to a media
 
-If you want to remove any user from a media, add them to `removed`.
+If you want to add user tags, put them in the `in` array. If you want to remove a user from the media, add them to `removed` instead.
 
 ```php
 $captionText = 'This is a test';
