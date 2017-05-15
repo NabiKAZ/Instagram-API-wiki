@@ -26,6 +26,7 @@ Here is explained basic concepts about how to use the API. All documentation abo
     * [Managing responses](#managing-responses)
     * [Setting a proxy](#setting-a-proxy)
     * [Pagination](#pagination)
+    * [Response Objects](#response-objects)
   * **[Some media functions](#uploading-media)**
     * [Uploading photos](#uploading-photos)
     * [Uploading video](#uploading-video)
@@ -181,6 +182,14 @@ When you get Instagram's response, it may contain a `next_max_id` key, which mea
 ```
 
 Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/master/examples/paginationExample.php)
+
+## Response Objects
+
+Many people assume we are the ones building the objects/their values. We are _not_! It all comes from the Instagram server. `NULL` in a field means the Instagram server did not send any value for that field.
+
+Most objects we have are re-used for lots of different responses, and most server responses do not fill every field. So just because people see something like for example a `$view_count` field on an object does not mean it _will_ be filled with anything. Most server responses only fill 30% of all available object fields!
+
+We do not control what the server will send you! Missing `NULL` fields is totally normal!
 
 ## Uploading media
 
