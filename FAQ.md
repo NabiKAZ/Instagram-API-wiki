@@ -34,7 +34,13 @@ API is using an outdated version or outdated headers. If you get this message wi
 
 ### What does sentry_block error mean?
 
-This is the response for detected spam/bot behavior. Stop using the api in whatever way that triggered this reponse.
+This is Instagram's response when your account has been banned from the API for detected spam/bot behavior. The website and app will still work, but you will not be able to use that account via this API anymore.
+
+Specifically, "sentry block" means that Instagram has blocked your account's ability to use this PHP API library (and all other reverse-engineered libraries like it), because of either A) spamming or otherwise abusing (such as mass-following) or B) repeatedly and heavily misusing APIs, in a way humans would never call them.
+
+Normal people using this library don't get sentry blocked. Which means that you've had to do something bad to get blocked by Instagram. There is no way to get unblocked.
+
+Stop using the API in whatever way that triggered this response.
 
 ### My photos/videos are removed just after upload
 
