@@ -1,112 +1,158 @@
 # Frequently Asked Questions
 
-- [What does error code XXX mean?](#what-does-error-code-xxx-mean)
-- [Your version of Instagram is out of date](#your-version-of-instagram-is-out-of-date)
-- [What does sentry_block error mean?](#what-does-sentry_block-error-mean)
-- [My photos/videos are removed just after upload](#my-photosvideos-are-removed-just-after-upload)
-- [Uploading videos doesnt work](#uploading-videos-doesnt-work)
-- [How to extract Instagram Signature Key](#how-to-extract-instagram-signature-key)
-- [Instagram has changed my password](#instagram-has-changed-my-password)
-- [Instagram registration doesn't work](#instagram-registration-doesnt-work)
-- [How to get all the users im following?](#how-to-get-all-the-users-im-following)
-- [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
-- [How can i capture requests?](#how-can-i-capture-requests)
-- [Checkpoint required](#checkpoint-required)
-- [Im getting Error 500](#im-getting-error-500)
-- [My photo doesnt appear when searching hashtags](#my-photo-doesnt-appear-when-searching-hashtags)
-- [New line in comment doesnt work](#new-line-in-comment-doesnt-work)
-- [Issue getting media likers](#issue-getting-media-likers)
-- [Issue getting followers](#issue-getting-followers)
+- Understanding Responses from Instagram
+  - [What do the 4XX HTTP error codes mean?](#what-do-the-4xx-http-error-codes-mean)
+  - [What does the 500 HTTP error code mean?](#what-does-the-500-http-error-code-mean)
+  - [What does "Your version of Instagram is out of date." mean?](#what-does-your-version-of-instagram-is-out-of-date-mean)
+  - [What does "sentry_block" error mean?](#what-does-sentry_block-error-mean)
+  - [What does "checkpoint_required" error mean?](#what-does-checkpoint_required-error-mean)
 
-### What does error code XXX mean?
+- Unusual Instagram Behaviour
+  - [Instagram registration doesn't work](#instagram-registration-doesnt-work)
+  - [My photos/videos are removed just after upload](#my-photosvideos-are-removed-just-after-upload)
+  - [Instagram has changed my password](#instagram-has-changed-my-password)
+  - [Uploading videos doesn't work](#uploading-videos-doesnt-work)
+  - [I can only see some 'likers'](#i-can-only-see-some-likers)
+  - [I can only see some 'followers'](#i-can-only-see-some-followers)
+
+
+- How To Guides
+  - [How do I extract an Instagram Signature Key?](#how-do-i-extract-an-instagram-signature-key)
+  - [How do I paginate in API endpoints?](#how-do-i-paginate-in-api-endpoints)
+  - [How do I capture requests?](#how-do-i-capture-requests)
+
+
+- Other Issues
+
+  - [My photo doesn't appear when searching hashtags](#my-photo-doesnt-appear-when-searching-hashtags)
+  - [A new-line character in a comment doesn't work](#a-new-line-character-in-a-comment-doesnt-work)
+  - [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
+
+
+
+## Understanding Responses from Instagram
+
+### What do the 4XX HTTP error codes mean?
 
 
 - **400**: Bad request. Please check the parameters specified.
 - **403**: The method requires authentication (web client) or the request has been denied by Instagram.
 - **404**: The entity requested is not found (web client) or the endpoint does not exist.
-- **429**: Too many requests. You’re making too many calls.
+- **429**: Too many requests. You’re making too many calls, too fast.
 
-Instagram may also return other 4XX or 5XX codes.
+Instagram may also return other 4XX codes.
 
-### Your version of Instagram is out of date.
+### What does the 500 HTTP error code mean?
 
-API is using an outdated version or outdated headers. If you get this message with **this API**, open a new issue.
+This is an internal Instagram server error, and should only be temporary.
 
-### What does sentry_block error mean?
+Note: This is **NOT** an API issue. Please so don't open any issue related to this.
 
-This is Instagram's response when your account has been banned from the API for detected spam/bot behavior. The website and app will still work, but you will not be able to use that account via this API anymore.
+Some causes that have been reported by our users:
 
-Specifically, "sentry block" means that Instagram has blocked your account's ability to use this PHP API library (and all other reverse-engineered libraries like it), because of either A) spamming or otherwise abusing (such as mass-following) or B) repeatedly and heavily misusing APIs, in a way humans would never call them.
+  * Uploaded photos must be an acceptable size and shape; they are not resized by the server.
+  * EXIF data may cause an uploaded photo to be rejected.
+  * Incorrectly configured HTTP proxies may trigger this error.
 
-Normal people using this library don't get sentry blocked. Which means that you've had to do something bad to get blocked by Instagram. There is no way to get unblocked.
+### What does "Your version of Instagram is out of date." mean?
+
+This error message indicates the API is using an outdated version or outdated headers.
+
+If you get this message with **this API**, please open a new issue.
+
+### What does "sentry_block" error mean?
+
+This is Instagram's response when your account has been banned from the API for detected spam/bot behavior.
+
+The website and app will still work, but you will not be able to use that account via this API anymore. There is no way to get unblocked.
+
+Specifically, "sentry block" means that Instagram has blocked your account's ability to use this PHP API library (and all other reverse-engineered libraries like it), because of either:
+
+  1. Spamming or otherwise abusing (such as mass-following)
+  1. Or repeatedly and heavily misusing APIs, in a way humans would never call them.
+
+People using this library like a normal person don't get sentry blocked. Which means that you've had to do something bad to get blocked by Instagram. There is no way to get unblocked.
 
 Stop using the API in whatever way that triggered this response.
 
-### My photos/videos are removed just after upload
+### What does "checkpoint_required" error mean?
 
-In that case, Instagram has flagged your account/IP as spam, try from a different location and remove the cookies inside `data` folder, and do not do spam.
+If you get `checkpoint_required`, it means that Instagram wants you to prove that you are human and that you are the owner of the account. It can easily get triggered if you put your script on a server which is in a country that you don't normally log in from, for example. Simply login to your account via the official website or your mobile device - that should fix it. If you still get the error again, it means Instagram dislikes your server's IP and that you must login to your account via Instagram's website and your server's IP to prove to them that your server's IP is a human.
 
-### Uploading videos doesnt work
-
-It works. Make sure the media is compatible (format, size, dimmensions...) and you have `ffmpeg` installed. More info: https://github.com/mgp25/Instagram-API/wiki/Dependencies
-
-### How to extract Instagram Signature Key
-
-It's explained here: https://github.com/mgp25/Instagram-API/wiki/Technical-information
-
-### Instagram has changed my password
-
-When you login from different locations, to avoid someone gets into your account, Instagram does that, its a security measure.
+## Unusual Instagram Behaviour
 
 ### Instagram registration doesn't work
 
 It works perfectly. If your IP is flagged you won't be able to create any account. If you receive this as response, you were flagged as spam:
 
 ```json
- {"status": "fail", "feedback_title": "Signup Error", 
-"feedback_message": "Sorry! There\u2019s a problem signing you up right now. 
-Please try again later. We restrict certain content and actions to protect our community. 
-Tell us if you think we made a mistake.", 
-"spam": true, "feedback_action": "report_problem", "feedback_url": 
-"repute/report_problem/instagram_signup/", 
-"feedback_ignore_label": "OK", "message": "feedback_required", 
+ {"status": "fail", "feedback_title": "Signup Error",
+"feedback_message": "Sorry! There\u2019s a problem signing you up right now.
+Please try again later. We restrict certain content and actions to protect our community.
+Tell us if you think we made a mistake.",
+"spam": true, "feedback_action": "report_problem", "feedback_url":
+"repute/report_problem/instagram_signup/",
+"feedback_ignore_label": "OK", "message": "feedback_required",
 "feedback_appeal_label": "Report problem"}
 ```
 
-### How to get all the users im following?
 
-Check this [example](https://github.com/mgp25/Instagram-API/blob/master/examples/PaginationExample.php), it will show you how to get all followers/followings using pagination.
+### My photos/videos are removed just after upload
 
-### Are you going to add video view increment?
+In this case, Instagram has flagged your account/IP as spam. Try from a different location and remove the cookies inside the `sessions/` folder, and do not spam.
 
-**No.**
+### Instagram has changed my password
 
-### How can i capture requests?
+When you login from different locations, to avoid someone stealing your account, Instagram may change your password. It's a security measure.
 
-You can use any proxy you want. Remember to disable cert pinning. If you have any doubt, search in google.
+### Uploading videos doesn't work
 
-### checkpoint required
+* Ensure the media is compatible (format, size, dimensions, etc.)
+* Ensure you have `ffmpeg` and `ffprobe` installed. See [Dependencies](https://github.com/mgp25/Instagram-API/wiki/Dependencies) for more info.
 
-If you get `checkpoint_required` use this script: https://github.com/mgp25/Instagram-API/blob/master/examples/checkpoint.php
+### I can only see some 'likers'
 
-Or login to your account using your mobile device, that should fix it.
+When the media has a lot of likes, only some of the likers will be retrieved. The response has a limited number of likers.
 
-### Im getting Error 500
+This is a normal behavior; the Instagram app performs in the same way.
 
-This is a server internal error, due to some bad configuration, this is **NOT** an API issue, so don't open any issue related to this. If you use a proxy and you get this error, the proxy could be the problem.
+### I can only see some 'followers'
+
+When you try to paginate to get all followers or following of a user, the response could be limited
+to show only some of the followers / followings.
+
+This is a normal behavior; the Instagram app performs in the same way.
+
+## How To Guides
+
+### How do I extract an Instagram Signature Key?
+
+It's explained on the [Technical Information](https://github.com/mgp25/Instagram-API/wiki/Technical-information) wiki page.
+
+### How do I paginate in API endpoints?
+
+This [example](https://github.com/mgp25/Instagram-API/blob/master/examples/paginationExample.php) shows how to handle endpoints that use pagination.
+
+### How do I capture requests?
+
+You can use any proxy you want. Remember to disable certificate pinning.
+
+Please don't ask for further assistance here.
+
+
+## Other Issues
 
 ### My photo doesn't appear when searching hashtags
 
-This is a known issue and will be fixed eventually, so don't open issues about this.
+This is a known issue with the API. It's due to Instagram's anti-spam protection. They obviously don't want bad API users to spam a bunch of fake photos on popular hashtags, so they don't allow API uploads to be listed in hashtag feeds.
 
-### New line in comment doesnt work
+Please don't open further issues about this.
+
+### A new-line character in a comment doesn't work
 
 See [issue 1118](https://github.com/mgp25/Instagram-API/issues/1118)
 
-### Issue getting media likers
 
-When the media has a lot of likes, only some of the likers will be retrived, the response has a limited likers and **this is a normal behavior, app does the same**
+### Are you going to add video view increment?
 
-### Issue getting followers
-
-When you try to paginate to get all followers or following of a user, the response could be limited showing only some of the followers / followings, and **this is a normal behavior, app does the same**
+No.
