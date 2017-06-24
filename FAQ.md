@@ -8,7 +8,6 @@
   - [What does "checkpoint_required" error mean?](#what-does-checkpoint_required-error-mean)
 
 - Unusual Instagram Behaviour
-  - [Instagram registration doesn't work](#instagram-registration-doesnt-work)
   - [My photos/videos are removed just after upload](#my-photosvideos-are-removed-just-after-upload)
   - [Instagram has changed my password](#instagram-has-changed-my-password)
   - [Uploading videos doesn't work](#uploading-videos-doesnt-work)
@@ -80,22 +79,6 @@ Stop using the API in whatever way that triggered this response.
 If you get `checkpoint_required`, it means that Instagram wants you to prove that you are human and that you are the owner of the account. It can easily get triggered if you put your script on a server which is in a country that you don't normally log in from, for example. Simply login to your account via the official website or your mobile device - that should fix it. If you still get the error again, it means Instagram dislikes your server's IP and that you must login to your account via Instagram's website and your server's IP to prove to them that your server's IP is a human.
 
 ## Unusual Instagram Behaviour
-
-### Instagram registration doesn't work
-
-It works perfectly. If your IP is flagged you won't be able to create any account. If you receive this as response, you were flagged as spam:
-
-```json
- {"status": "fail", "feedback_title": "Signup Error",
-"feedback_message": "Sorry! There\u2019s a problem signing you up right now.
-Please try again later. We restrict certain content and actions to protect our community.
-Tell us if you think we made a mistake.",
-"spam": true, "feedback_action": "report_problem", "feedback_url":
-"repute/report_problem/instagram_signup/",
-"feedback_ignore_label": "OK", "message": "feedback_required",
-"feedback_appeal_label": "Report problem"}
-```
-
 
 ### My photos/videos are removed just after upload
 
