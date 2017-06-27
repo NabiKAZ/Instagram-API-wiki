@@ -43,7 +43,7 @@ Instagram may also return other 4XX codes.
 
 ### What does the 500 HTTP error code mean?
 
-This is an internal Instagram server error, and should only be temporary.
+This is an internal Instagram server error, and is usually temporary. But it is permanent if _you_ are responsible for the error by sending bad data to Instagram.
 
 Note: This is **NOT** an API issue. Please so don't open any issue related to this.
 
