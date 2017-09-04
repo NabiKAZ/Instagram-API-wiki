@@ -25,6 +25,7 @@
   * **[Direct messaging and sharing](#direct-messaging-and-sharing)**
 	* [Sharing media](#sharing-media)
 	* [Sending text message or link](#sending-text-message-or-link)
+	* [All Direct functions](#all-direct-functions)
   * **[Interacting with users](#interacting-with-users)**
 	* [Follow and Unfollow](#follow-and-unfollow)
 	* [Getting followers](#getting-followers)
