@@ -17,6 +17,7 @@ Here is explained basic concepts about how to use the API. All documentation abo
 
 ### **Full API documentation [HERE](https://github.com/mgp25/Instagram-API/wiki/API-Documentation)**
 
+
 * **[Instagram API Documentation]()**
   * **[Getting started]()**
     * [Constructor](#constructor)
@@ -24,15 +25,26 @@ Here is explained basic concepts about how to use the API. All documentation abo
     * [Two Factor Login](#two-factor-login)
     * [Username ID](#username-id)
     * [Managing responses](#managing-responses)
+    * [Response Objects](#response-objects)
     * [Setting a proxy](#setting-a-proxy)
     * [Pagination](#pagination)
-    * [Response Objects](#response-objects)
-  * **[Some media functions](#uploading-media)**
+  * **[Media functions](#media-functions)**
     * [Uploading photos](#uploading-photos)
     * [Uploading video](#uploading-video)
     * [Uploading media to Stories](#uploading-media-to-stories)
     * [Uploading an album](#uploading-an-album)
-    * [Adding tags to a media](#adding-tags-to-a-media)
+    * [Edit media](#edit-media)
+    * [All media functions](#all-media-functions)
+  * **[Direct messaging and sharing](#direct-messaging-and-sharing)**
+	* [Sharing media](#sharing-media)
+	* [Sending text message or link](#sending-text-message-or-link)
+	* [All Direct functions](#all-direct-functions)
+  * **[Interacting with users](#interacting-with-users)**
+	* [Follow and Unfollow](#follow-and-unfollow)
+	* [Getting followers](#getting-followers)
+	* [All functions to interact with users](#all-functions-to-interact-with-users)
+  * **[More functions](#more-functions)** 
+
 
 
 ## Constructor
@@ -59,22 +71,16 @@ $ig = new \InstagramAPI\Instagram(true, true, [
 
 ## Login
 
-Once you have initialized the InstagramAPI class, you must login to an account. Both of these functions must be called every time. They will set the active user and then login or resume an existing session.
+Once you have initialized the InstagramAPI class, you must login to an account. 
 
 ```php
-$ig->setUser($username, $password);
-$ig->login(); // Will resume if a previous session exists.
+$ig->login($username, $password); // Will resume if a previous session exists.
 ```
 
 Your sessions will be stored a `sessions/username/` folder by default, if you're using the file-based settings backend. If you set use other custom settings path, a username folder will be created under it. By default, the hierarchy is as follows:
 
 ```
-vendor
-|-- mgp25
-|    |-- instagram-php
-|    |    |-- sessions
-|    |    |    |-- 
-InstagramAPI
+Instagram-API
 |-- src
 |-- sessions 
 |    |-- username
@@ -87,11 +93,10 @@ InstagramAPI
 
 Both files are generated automatically by the API.
 
-If you want to manage more accounts at once, you can switch accounts by changing the active user and calling `login()` again:
+If you want to manage more accounts at once, you can switch accounts by calling `login()` with the new account:
 
 ```php
-$ig->setUser($user2, $passwd2);
-$ig->login();
+$ig->login($username, $password);
 ```
 
 ## Two Factor Login
@@ -99,17 +104,16 @@ $ig->login();
 If you have an account with two factor authentication enabled, you need to login this way:
 
 ```php
-    $ig->setUser($username, $password);
-    $loginResponse = $ig->login();
+    $loginResponse = $ig->login($username, $password);
 
-    if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
+    if (!is_null($loginResponse) && $loginResponse->isTwoFactorRequired()) {
         $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
 
          // The "STDIN" lets you paste the code via terminal for testing.
          // You should replace this line with the logic you want.
          // The verification code will be sent by Instagram via SMS.
         $verificationCode = trim(fgets(STDIN));
-        $ig->twoFactorLogin($verificationCode, $twoFactorIdentifier);
+        $ig->finishTwoFactorLogin($verificationCode, $twoFactorIdentifier);
     }
 ```
 
@@ -124,7 +128,7 @@ As you can see while using the API, most of the functions require a param called
 If you don't know how to obtain this id, don't worry about it, you can use `getUsernameId()`.
 
 ```php
-$userId = $ig->getUsernameId('MyUsername');
+$userId = $ig->people->getUserIdForName('MyUsername');
 ```
 
 `$userId` now contains `1959226924`
@@ -134,11 +138,19 @@ $userId = $ig->getUsernameId('MyUsername');
 When you do a request, you can obtain all the information very easily since all responses are objects, for example:
 
 ```php
-$a = $ig->getUserInfoById($userId);
-echo $a->getUsername(); // this will print username of user with id $userId 
+$response = $i->people->getInfoById($userId);
+echo $response->getUser()->getUsername(); // this will print username of user with id $userId 
 ```
 
 You can find all responses and their object-functions [here](https://github.com/mgp25/Instagram-API/tree/master/src/Response). Note that no objects have any defined functions. The functions are auto-created based on the object properties. For example a property `$username` can be read via `getUsername()`, and a property `$carousel_media` can be read via `getCarouselMedia()`. The list of auto-defined functions is `getX`, `setX`, and `isX`, where `X` is the name of an object property.
+
+## Response Objects
+
+Many people assume we are the ones building the objects/their values. We are _not_! It all comes from the Instagram server. `NULL` in a field means the Instagram server did not send any value for that field.
+
+Most objects we have are re-used for lots of different responses, and most server responses do not fill every field. So just because people see something like for example a `$view_count` field on an object does not mean it _will_ be filled with anything. Most server responses only fill 30% of all available object fields!
+
+We do not control what the server will send you! Missing `NULL` fields is totally normal!
 
 ## Setting a proxy
 
@@ -183,57 +195,83 @@ When you get Instagram's response, it may contain a `next_max_id` key, which mea
 
 Example: [PaginationExample.php](https://github.com/mgp25/Instagram-API/blob/master/examples/paginationExample.php)
 
-## Response Objects
 
-Many people assume we are the ones building the objects/their values. We are _not_! It all comes from the Instagram server. `NULL` in a field means the Instagram server did not send any value for that field.
-
-Most objects we have are re-used for lots of different responses, and most server responses do not fill every field. So just because people see something like for example a `$view_count` field on an object does not mean it _will_ be filled with anything. Most server responses only fill 30% of all available object fields!
-
-We do not control what the server will send you! Missing `NULL` fields is totally normal!
-
-## Uploading media
+## Media functions
 
 ### Uploading photos
-`uploadTimelinePhoto($photoFile, $metadata)`
 
 `$photoFile` is the path to the photo. ie: `/desktop/cat.jpg`
 
 ```php
 $metadata = [
               'caption' => 'My awesome caption',
-              'location' => $location, // $location must be an instance of Location class
+              'location' => $location, // $location must be an instance of /Model/Location class
             ];
 
 // if you want only a caption, you can simply do this:
 $metadata = ['caption' => 'My awesome caption'];
 
-$ig->uploadTimelinePhoto($photoFile, $metadata);
+$ig->timeline->uploadPhoto($photoFilename, $metadata);
 ```
+
+Example: [uploadPhoto.php](https://github.com/mgp25/Instagram-API/blob/master/examples/uploadPhoto.php)
 
 ### Uploading video
-`uploadTimelineVideo($videoFile, $metadata)`
 
 ```php
-$ig->uploadTimelineVideo($videoFile, $metadata);
+$ig->timeline->uploadVideo($videoFile, $metadata);
 ```
+
+Example: [uploadVideo.php](https://github.com/mgp25/Instagram-API/blob/master/examples/uploadVideo.php)
 
 ### Uploading media to Stories
 
-`uploadStoryPhoto($photoFile, $metadata)`
-
-`$photoFile` is the path to the photo. ie: `/desktop/cat.jpg`
+You can upload both photos and videos to Stories.
 
 ```php
-$metadata = ['caption' => 'My awesome caption'];
 
-$ig->uploadStoryPhoto($photoFile, $metadata);
+$metadata = [
+    'hashtags' => [
+        // Note that you can add more than one hashtag in this array.
+        [
+            'tag_name'         => 'test', // NOTE: This hashtag MUST appear in the caption (it does NOT include the '#' here).
+            'x'                => 0.5, // Range: 0.0 - 1.0
+            'y'                => 0.5, // Note that x = 0.5 and y = 0.5 is center of screen.
+            'width'            => 0.24305555, // Percentage: 0.0 - 1.0
+            'height'           => 0.07347973, // Percentage: 0.0 - 1.0
+            'rotation'         => 0.0,
+            'is_sticker'       => false, // Don't change this value.
+            'use_custom_title' => false, // Don't change this value.
+        ],
+        // ...
+    ],
+    'caption' => '#test This is a great API!',
+];
+
+$ig->story->uploadPhoto($photoFilename, $metadata);
 ```
 
 Same thing can be done with videos:
 
 ```php
-$ig->uploadStoryVideo($videoFile, $metadata);
+$ig->story->uploadVideo($videoFile, $metadata);
 ```
+
+**Note 1:** Adding a hashtag creates a link to the specified position, but the text overlay MUST be added by the user (You can use GD, PhotoShop or other image processing software for this).
+
+**Note 2:** ONLY if you have a bussiness account, you can use links in stories. If that is the case, you can use the `link` key  in `$metadata` to add a link, i.e:
+ 
+```php
+$metadata = 
+	[
+		'link' => $url
+	];
+
+$ig->story->uploadPhoto($photoFilename, $metadata);
+```
+
+
+Example: [uploadStory.php](https://github.com/mgp25/Instagram-API/blob/master/examples/uploadStory.php)
 
 ### Uploading an album
 
@@ -246,6 +284,16 @@ $media = [ // Albums can contain between 2 and 10 photos/videos.
     [
         'type'     => 'photo',
         'file'     => '', // Path to the photo file.
+        /* TAGS COMMENTED OUT UNTIL YOU READ THE BELOW:
+        'usertags' => [ // Optional, lets you tag one or more users in a PHOTO.
+            [
+                'position' => [0.5, 0.5],
+                // WARNING: THE USER ID MUST BE VALID. INSTAGRAM WILL VERIFY IT
+                // AND IF IT'S WRONG THEY WILL SAY "media configure error".
+                'user_id'  => '123456789', // Must be a numerical UserPK ID.
+            ],
+        ],
+        */
     ],
     [
         'type'     => 'video',
@@ -253,32 +301,117 @@ $media = [ // Albums can contain between 2 and 10 photos/videos.
     ],
 ];
 
-$ig->uploadTimelineAlbum($media, ['caption' => $captionText]);
+$captionText = '';
+
+$ig->timeline->uploadAlbum(($media, ['caption' => $captionText]);
 ```
 
 Example: [uploadAlbum.php](https://github.com/mgp25/Instagram-API/blob/master/examples/uploadAlbum.php)
 
 
-## Adding usertags to a media
+### Edit media
 
 If you want to add user tags, put them in the `in` array. If you want to remove a user from the media, add them to `removed` instead.
 
 ```php
-$captionText = 'This is a test';
-$userTags = [
-              'removed' => [
-                           ],
-              'in'      => [
-                             'position' => [
-                                              0.47097720202318, // x position
-                                              0.46537839732884  // y position
-                                           ],
-                             'user_id'  => [
-                                              $userId
-                                           ]
-                           ]
-            ];
-$userTags = json_encode($userTags);
+$metadata = 
+    [
+        'usertags' => 
+            [
+                'removed' => [],
+                'in'      => 
+                    [
+                        'position' => 
+                            [
+                                0.47097720202318, // x position
+                                0.46537839732884  // y position
+                            ],
+                            'user_id'  => 
+                                [
+                                    $userId
+                                ]
+                    ]
+            ]
+    ];
 
-$ig->editMedia($mediaId, $captionText, $userTags);
+$ig->media->edit($mediaId, $captionText, $metadata);
 ```
+
+You can also add a `Location` or change the caption with this function. In case you want to delete the location, you can send an empty `Location` object.
+
+### All media functions
+
+All media functions can be found in the following classes:
+
+- [Media.php](https://github.com/mgp25/Instagram-API/blob/master/src/Request/Media.php)
+- [Story.php](https://github.com/mgp25/Instagram-API/blob/master/src/Request/Story.php)
+- [Timeline.php](https://github.com/mgp25/Instagram-API/blob/master/src/Request/Timeline.php)
+- [Live.php](https://github.com/mgp25/Instagram-API/blob/master/src/Request/Live.php)
+
+## Instagram Direct
+
+Instagram Direct lets you exchange threaded messages with one or more people, and share posts you see in Feed as a message.
+
+### Sharing media
+
+```php
+$ig->direct->sendPost($recipients, $mediaId);
+```
+
+To start a new thread, provide "users" as an array of numerical UserPK IDs. To use an existing thread instead, provide "thread" with the thread ID.
+
+```php
+//New thread
+$recipients = 
+	[
+		'users' => $userIds
+	];
+
+//Use an existing thread
+ $recipients = 
+	[
+		'thread' => $threadId
+	];
+```
+
+### Sending text message or link
+
+```php
+$ig->direct->sendText($recipients, $text);
+```
+
+If `$text` contains a link, it will be processed and sent as a link.
+
+
+### All Direct functions
+
+All Direct functions can be found in the following class:
+
+- [Direct.php](https://github.com/mgp25/Instagram-API/blob/master/src/Request/Direct.php)
+
+
+## Interacting with users
+
+### Follow and Unfollow
+
+```php
+$ig->people->follow($userId);
+
+$ig->people->unfollow($userId);
+```
+
+### Getting followers
+
+```php
+$ig->people->getFollowers($userId);
+```
+
+### All functions to interact with users
+
+All functions to interact with users can be found in the following class:
+
+- [People.php](https://github.com/mgp25/Instagram-API/blob/master/src/Request/People.php)
+
+## More functions
+
+All requests have now been organized into collections of related functions, which makes them much easier to find. Instead of painfully searching through hundreds of functions in the "huge main class" to find what you're looking for, you now simply have to look for the specific collection that seems to be the most likely one for your needs. And when we grouped all of these functions, we also took the opportunity to rename many of them to much cleaner, easier and more logical names! For example, if you now want to find hashtags, you would simply look in the Hashtag collection (`src/Request/Hashtag.php`), and there you would find the search() function, and your final function call would be `$ig->hashtag->search()`, which is very easy and clear to read. You can find all of the function groups [here](https://github.com/mgp25/Instagram-API/tree/master/src/Request).
