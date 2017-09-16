@@ -123,7 +123,7 @@ As you can see while using the API, most of the functions require a param called
 
 `MyUsername` ---> `1959226924`
 
-If you don't know how to obtain this id, don't worry about it, you can use `getUsernameId()`.
+If you don't know how to obtain this id, don't worry about it, you can use `getUserIdForName()`.
 
 ```php
 $userId = $ig->people->getUserIdForName('MyUsername');
@@ -136,7 +136,7 @@ $userId = $ig->people->getUserIdForName('MyUsername');
 When you do a request, you can obtain all the information very easily since all responses are objects, for example:
 
 ```php
-$response = $i->people->getInfoById($userId);
+$response = $ig->people->getInfoById($userId);
 echo $response->getUser()->getUsername(); // this will print username of user with id $userId 
 ```
 
