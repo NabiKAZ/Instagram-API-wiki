@@ -25,6 +25,7 @@
 
   - [My photo doesn't appear when searching hashtags](#my-photo-doesnt-appear-when-searching-hashtags)
   - [A new-line character in a comment doesn't work](#a-new-line-character-in-a-comment-doesnt-work)
+  - [Will you make the library asynchronous/concurrent?](#will-you-make-the-library-asynchronousconcurrent)
   - [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
 
 
@@ -135,6 +136,10 @@ Please don't open further issues about this.
 
 See [issue 1118](https://github.com/mgp25/Instagram-API/issues/1118)
 
+
+### Will you make the library asynchronous/concurrent?
+
+Never. It is an extremely terrible idea, [for a billion different reasons](https://github.com/mgp25/Instagram-API/issues/1584#issuecomment-332202257).
 
 ### Are you going to add video view increment?
 
