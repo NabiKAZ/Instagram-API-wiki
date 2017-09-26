@@ -25,6 +25,7 @@
 
   - [My photo doesn't appear when searching hashtags](#my-photo-doesnt-appear-when-searching-hashtags)
   - [A new-line character in a comment doesn't work](#a-new-line-character-in-a-comment-doesnt-work)
+  - [Is it possible to run the Realtime and Push clients in a single script?](#is-it-possible-to-run-the-realtime-and-push-clients-in-a-single-script) 
   - [Will you make the library asynchronous/concurrent?](#will-you-make-the-library-asynchronousconcurrent)
   - [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
 
@@ -136,6 +137,13 @@ Please don't open further issues about this.
 
 See [issue 1118](https://github.com/mgp25/Instagram-API/issues/1118)
 
+### Is it possible to run the Realtime and Push clients in a single script?
+
+Yes. You can run both in the same script. Just attach both to the same EventLoop.
+
+However, note that the real Instagram app only runs Realtime client when in foreground, whereas its Push client is persistent. You may want to emulate that behavior.
+
+There's also another hidden feature: You can create multiple `InstagramAPI\Instagram()` class instances in a single script, and create individual `Realtime`/`Push` clients for each of them, and then attach them all to the same EventLoop to handle multiple accounts in a single script ([see discussion](https://github.com/mgp25/Instagram-API/issues/1582#issuecomment-331618428)). But we leave that up to very advanced programmers and will not provide any assistance with such usage.
 
 ### Will you make the library asynchronous/concurrent?
 
