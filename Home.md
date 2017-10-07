@@ -32,6 +32,7 @@ Here is explained basic concepts about how to use the API. All documentation abo
     * [Uploading media to Stories](#uploading-media-to-stories)
     * [Uploading an album](#uploading-an-album)
     * [Edit media](#edit-media)
+    * [Liking media](#liking-media)
     * [All media functions](#all-media-functions)
   * **[Direct messaging and sharing](#direct-messaging-and-sharing)**
 	* [Sharing media](#sharing-media)
@@ -336,6 +337,72 @@ $ig->media->edit($mediaId, $captionText, $metadata);
 ```
 
 You can also add a `Location` or change the caption with this function. In case you want to delete the location, you can send an empty `Location` object.
+
+### Liking media
+
+If you want to like a media from your timeline, you can easily do:
+
+#### (Default module) Liking from timeline feed
+
+```php
+$ig->media->like($mediaId);
+```
+
+If you are in another place performing this action, you need to set `$module` value and depending the module, it could require some extra data:
+
+#### Liking from the explore tab
+
+```php
+$module = 'feed_contextual_post';
+$extraData = ['explore_source_token' => $exploreToken];
+
+$ig->media->like($mediaId, $module, $extraData);
+```
+
+#### Liking from an user profile
+
+Depending on the media, modules can be:
+
+```
+media_view_profile - for carousels
+photo_view_profile - for photos (the only one currently supported)
+video_view_profile - for videos
+```
+
+```php
+$extraData = ['username' => $username, 'user_id' => $userId];
+$ig->media->like($mediaId, $module, $extraData);
+```
+
+#### Linking from hashtag search
+
+
+```php
+$module = 'feed_contextual_hashtag';
+$extraData = ['hashtag' => $hashtag];
+
+$ig->media->like($mediaId, $module, $extraData);
+```
+
+#### Liking from place search
+
+
+```php
+$module = 'feed_contextual_location';
+$extraData = ['location_id' => $locationId];
+
+$ig->media->like($mediaId, $module, $extraData);
+```
+
+#### Liking from the followings activity feed
+
+If the user only liked one post ("xyz liked abc's post"), then the app uses module `newsfeed`.
+If the user liked multiple posts ("xyz liked 5 posts"), then the app uses module `feed_contextual_newsfeed_multi_media_liked`.
+
+No extra data is required.
+
+**Reference:** [Issue #1602](https://github.com/mgp25/Instagram-API/issues/1602)
+         
 
 ### All media functions
 
