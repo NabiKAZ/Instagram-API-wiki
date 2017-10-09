@@ -45,6 +45,8 @@ Instagram may also return other 4XX codes.
 
 ### What does the 500 HTTP error code mean?
 
+#### If the "Error 500" is in an Instagram API response:
+
 This is an internal Instagram server error, and is usually temporary. But it is permanent if _you_ are responsible for the error by sending bad data to Instagram.
 
 Note: This is **NOT** an API issue. Please so don't open any issue related to this.
@@ -54,6 +56,26 @@ Some causes that have been reported by our users:
   * Uploaded photos must be an acceptable size and shape; they are not resized by the server.
   * EXIF data may cause an uploaded photo to be rejected.
   * Incorrectly configured HTTP proxies may trigger this error.
+
+#### If the "Error 500" happens in a web browser when you host a script that uses this library:
+
+This is a problem with _your_ specific web server configuration.
+
+You are opening the scripts via a web server/web browser, and your web server has disabled error-display, so instead of showing what is wrong with the code/your settings, you get a blank/generic Error 500 HTML page.
+
+We do not recommend running any scripts via a web browser. This library is made for command line usage in a terminal (by running the script like a command line program, as `php yourscript.php`).
+
+However, it is possible to fix your bad web server configuration, by enabling error reporting on the server via either php.ini, or via adding a command like this (if your PHP config allows the `ini_set()` command) to the top of your script (above all other commands):
+
+```php
+<?php
+
+ini_set("display_errors", 1);
+```
+
+But we still do not recommend running this library via a web browser! Because browsers will terminate the PHP process as soon as the user closes their connection to the page, which means that your script can terminate at any moment. And furthermore, we must waste time logging in to Instagram every time the user refreshes the page, since each page load starts a new script. And there's also risks about concurrent access to a single user account. So we really, _really_ do not recommend running this library via a browser! It's a _very_ bad idea!
+
+Instead, you should run your script as a permanent process, and make it dump data to a database which your regular website reads from. That's the proper architecture system if you want to use this library online!
 
 ### What does "Your version of Instagram is out of date." mean?
 
