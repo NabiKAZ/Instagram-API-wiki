@@ -27,10 +27,10 @@ You can install it using composer:
 composer require mgp25/instagram-php
 ```
 
-or if you want latest commits: 
+or if you want latest commits (at your own risk): 
 
 ```
-composer require mgp25/instagram-php
+composer require mgp25/instagram-php dev-master
 ```
 
 ## Dockerfile
