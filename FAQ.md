@@ -39,7 +39,7 @@
 
 No. Don't do it.
 
-This library is made for command line usage in a terminal (by running the script like a command line program, as `php yourscript.php`). We do not recommend running this library via a web browser! Because browsers will terminate the PHP process as soon as the user closes their connection to the page (closes the tab, or presses "Stop loading page"), which means that your script can terminate at any moment. This library is not a webpage! It is an Instagram for Android application emulator. It emulates an application. Not a webpage. You cannot just randomly kill this library in the middle of work!
+This library is made for command line usage in a terminal (by running the script like a command line program, as `php yourscript.php`). We do not recommend running this library via a web browser! Because browsers will terminate the PHP process as soon as the user closes their connection to the page (closes the tab, or presses "Stop loading page"), which means that your script can terminate at any moment. This library is not a webpage! It is an Instagram for Android application emulator. It emulates an application. Not a webpage. You cannot just randomly kill this library in the middle of work! (You might kill it while it's writing to disk or calling some APIs!)
 
 And furthermore, if it's used on a webpage then it must waste time logging in to Instagram every time the user refreshes the webpage, since each page load would start a new script. And there's also risks about concurrent access to a single user account which can corrupt your settings-storage. So we really, _really_ do not recommend running this library via a browser! It's a _very_ bad idea!
 
