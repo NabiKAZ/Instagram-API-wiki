@@ -1,5 +1,8 @@
 # Frequently Asked Questions
 
+- Important Information
+  - [Can I run this library via a website?](#can-i-run-this-library-via-a-website)
+
 - Understanding Responses from Instagram
   - [What do the 4XX HTTP error codes mean?](#what-do-the-4xx-http-error-codes-mean)
   - [What does the 500 HTTP error code mean?](#what-does-the-500-http-error-code-mean)
@@ -30,6 +33,19 @@
   - [Will you make the library asynchronous/concurrent?](#will-you-make-the-library-asynchronousconcurrent)
   - [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
 
+## Important Information
+
+### Can I run this library via a website?
+
+No. Don't do it.
+
+This library is made for command line usage in a terminal (by running the script like a command line program, as `php yourscript.php`). We do not recommend running this library via a web browser! Because browsers will terminate the PHP process as soon as the user closes their connection to the page (closes the tab, or presses "Stop loading page"), which means that your script can terminate at any moment. This library is not a webpage! It is an Instagram for Android application emulator. It emulates an application. Not a webpage. You cannot just randomly kill this library in the middle of work!
+
+And furthermore, if it's used on a webpage then it must waste time logging in to Instagram every time the user refreshes the webpage, since each page load would start a new script. And there's also risks about concurrent access to a single user account which can corrupt your settings-storage. So we really, _really_ do not recommend running this library via a browser! It's a _very_ bad idea!
+
+Instead, you should run your script as a permanent process, and make it dump data to a database which your regular website reads from, or make some kind of permanent daemon that can receive queries and respond with something like JSON or with serialized `src/Response/` objects.
+
+So, make the "application" part a permanent process, and make your webpage interact with that permanent process or an intermediary database in some way. That's the proper architecture system if you want to use this library online!
 
 
 ## Understanding Responses from Instagram
@@ -64,7 +80,7 @@ This is a problem with _your_ specific web server configuration.
 
 You are opening the scripts via a web server/web browser, and your web server has disabled error-display, so instead of showing what is wrong with the code/your settings, you get a blank/generic Error 500 HTML page.
 
-We do not recommend running any scripts via a web browser. This library is made for command line usage in a terminal (by running the script like a command line program, as `php yourscript.php`).
+We do not recommend running any scripts via a web browser. [It is very dangerous](#can-i-run-this-library-via-a-website).
 
 However, it is possible to fix your bad web server configuration, by enabling error reporting on the server via either php.ini, or via adding a command like this (if your PHP config allows the `ini_set()` command) to the top of your script (above all other commands):
 
@@ -73,10 +89,6 @@ However, it is possible to fix your bad web server configuration, by enabling er
 
 ini_set("display_errors", 1);
 ```
-
-But we still do not recommend running this library via a web browser! Because browsers will terminate the PHP process as soon as the user closes their connection to the page, which means that your script can terminate at any moment. And furthermore, we must waste time logging in to Instagram every time the user refreshes the page, since each page load starts a new script. And there's also risks about concurrent access to a single user account. So we really, _really_ do not recommend running this library via a browser! It's a _very_ bad idea!
-
-Instead, you should run your script as a permanent process, and make it dump data to a database which your regular website reads from. That's the proper architecture system if you want to use this library online!
 
 ### What does "Your version of Instagram is out of date." mean?
 
