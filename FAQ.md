@@ -13,6 +13,7 @@
   - [Uploading videos doesn't work](#uploading-videos-doesnt-work)
   - [I can only see some 'likers'](#i-can-only-see-some-likers)
   - [I can only see some 'followers'](#i-can-only-see-some-followers)
+  - [I can login with a password with an extra character](#i-can-login-with-a-password-with-an-extra-character)
 
 
 - How To Guides
@@ -129,6 +130,18 @@ When you try to paginate to get all followers or following of a user, the respon
 to show only some of the followers / followings.
 
 This is a normal behavior; the Instagram app performs in the same way.
+
+### I can login with a password with an extra character
+
+This is totally normal. Instagram accepts all of these passwords (where "X" is "1 single character of any kind"):
+
+`password`
+`passwordX`
+`Xpassword`
+
+We think they do this to make sure people can copy-paste their password even if it has whitespace at start or end.
+
+They do not accept 2 or more leading/trailing chars. And they do not accept 1 leading AND 1 trailing. Just 1 leading OR 1 trailing.
 
 ## How To Guides
 
