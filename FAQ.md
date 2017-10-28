@@ -43,7 +43,7 @@ This library is made for command line usage in a terminal (by running the script
 
 And furthermore, if it's used on a webpage then it must waste time logging in to Instagram every time the user refreshes the webpage, since each page load would start a new script. And there's also risks about concurrent access to a single user account which can corrupt your settings-storage. So we really, _really_ do not recommend running this library via a browser! It's a _very_ bad idea!
 
-Instead, you should run your script as a permanent process, and make it dump data to a database which your regular website reads from, or make some kind of permanent daemon that can receive queries and respond with something like JSON or with serialized `src/Response/` objects.
+Instead, you should run your script as a permanent process, and make it dump data to a database which your regular website reads from, or make some kind of permanent daemon that can listen locally on the server and receive queries (localhost queries from the main website's scripts) and respond with something like JSON or with serialized `src/Response/` objects.
 
 So, make the "application" part a permanent process, and make your webpage interact with that permanent process or an intermediary database in some way. That's the proper architecture system if you want to use this library online!
 
