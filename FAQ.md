@@ -37,7 +37,7 @@
 
 ### Can I run this library via a website?
 
-No. Don't do it. You cannot use this _**or any other** 3rd party Instagram libraries_ via a website!
+No. Don't do it. You cannot _safely_ use this _**or any other** 3rd party Instagram libraries_ directly via a website!
 
 This library (and _all other_ 3rd party reverse engineered Instagram libraries), is made for command line usage in a terminal by running the script like a program (such as `php yourscript.php`). We do **not** recommend running this library via a web browser! Because browsers will terminate the PHP process as soon as the user closes their connection to the page (closes the tab, or presses "Stop loading page"), which means that your script can terminate at any moment. This library is not a webpage! It is an Instagram for Android application emulator. It emulates an **application**. Not a webpage. You cannot just randomly kill this library in the middle of work! (You might kill it while it's writing to disk or calling some important APIs!)
 
