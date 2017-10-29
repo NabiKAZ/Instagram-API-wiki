@@ -37,13 +37,15 @@
 
 ### Can I run this library via a website?
 
-No. Don't do it.
+No. Don't do it. You cannot use this _or any other 3rd party Instagram libraries_ via a website!
 
 This library is made for command line usage in a terminal (by running the script like a command line program, as `php yourscript.php`). We do not recommend running this library via a web browser! Because browsers will terminate the PHP process as soon as the user closes their connection to the page (closes the tab, or presses "Stop loading page"), which means that your script can terminate at any moment. This library is not a webpage! It is an Instagram for Android application emulator. It emulates an application. Not a webpage. You cannot just randomly kill this library in the middle of work! (You might kill it while it's writing to disk or calling some APIs!)
 
 And furthermore, if it's used on a webpage then it must waste time logging in to Instagram every time the user refreshes the webpage, since each page load would start a new script. And there's also risks about concurrent access to a single user account which can corrupt your settings-storage. So we really, _really_ do not recommend running this library via a browser! It's a _very_ bad idea!
 
-Instead, you should run your script as a permanent process, and make it dump data to a database which your regular website reads from, or make some kind of permanent daemon that can listen locally on the server and receive queries (localhost queries from the main website's scripts) and respond with something like JSON or with serialized `src/Response/` objects.
+Instead, you should run your script as a permanent process, and make it dump data to a database which your regular website reads from, or make some kind of permanent localhost daemon that can listen locally on the server and receive queries on a port (localhost queries from the main website's scripts) and perform the queries via the API and then respond with something like JSON or with serialized `src/Response/` objects.
+
+You must also be sure that your permanent process periodically calls `login()` inside your 24/7 PHP process. Otherwise it will soon get banned/limited by Instagram due to never calling login. Preferably use the same limits we use by default: Every 30 minutes, or at max every 6 hours.
 
 So, make the "application" part a permanent process, and make your webpage interact with that permanent process or an intermediary database in some way. That's the proper architecture system if you want to use this library online!
 
