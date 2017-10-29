@@ -47,7 +47,7 @@ Instead, you should run your script as a permanent 24/7 process, and make it dum
 
 You must also be sure that your permanent process periodically calls `login()` inside your 24/7 PHP process, to emulate the Instagram for Android application being closed/opened and refreshing itself (like a real user would do). Otherwise it will soon get banned or silently limited as a "detected bot" by Instagram due to never calling login. Preferably use the same limits we use by default, and refresh `login()` within a random range between every 30 minutes, or at max every 6 hours.
 
-So, to recap: Make your "Instagram application" part a permanent process, and then make your webpage interact with that permanent process or an intermediary database in some way. That's the _proper_ architecture system if you want to use this library online!
+So, to recap: Make your "Instagram application" part a permanent process, and then make your webpage interact with that permanent process or an intermediary database in some way. That's the _proper_ architecture system if you want to use this library online! Imagine it like your website talking to a phone and telling its permanently running Instagram app to do things. _That's_ the proper design and that's how you have to think about things.
 
 Never forget this fact: This library (and _all_ other 3rd party libraries) is an Android application emulator. It is not a website and will _never_ be able to become a website (because the Android application is not a website!). Therefore, we will _never_ give support to anyone who decides to use the library directly inside a webpage. If you do that, it's _at your own risk_! It is a really terrible and unsupported idea!
 
