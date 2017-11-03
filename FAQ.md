@@ -180,7 +180,7 @@ Please don't ask for further assistance here.
 
 ### My photo doesn't appear when searching hashtags
 
-This is a known issue with the API. It's due to Instagram's anti-spam protection. They obviously don't want bad API users to spam a bunch of fake photos on popular hashtags, so they don't allow API uploads to be listed in hashtag feeds.
+This is a known issue with _every_ 3rd party (non-official) API in the world and it cannot be fixed! It's due to Instagram's anti-spam protection. They obviously don't want bad API users to spam a bunch of fake photos on popular hashtags, so they don't allow 3rd party API uploads to be listed in hashtag feeds.
 
 Please don't open further issues about this.
 
