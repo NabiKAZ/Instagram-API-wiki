@@ -429,13 +429,13 @@ To start a new thread, provide "users" as an array of numerical UserPK IDs. To u
 //New thread
 $recipients = 
 	[
-		'users' => $userIds
+		'users' => $userIds // must be an [array] of valid UserPK IDs
 	];
 
 //Use an existing thread
  $recipients = 
 	[
-		'thread' => $threadId
+		'thread' => $threadId // must be a single, valid thread ID
 	];
 ```
 
