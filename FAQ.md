@@ -32,6 +32,7 @@
   - [Is it possible to run the Realtime and Push clients in a single script?](#is-it-possible-to-run-the-realtime-and-push-clients-in-a-single-script) 
   - [Will you make the library asynchronous/concurrent?](#will-you-make-the-library-asynchronousconcurrent)
   - [Are you going to add video view increment?](#are-you-going-to-add-video-view-increment)
+  - [Do i have to add a sleep() after each request?](#do-i-have-to-add-a-sleep-after-each-request)
 
 ## Important Information
 
@@ -203,3 +204,7 @@ Never. It is an extremely terrible idea, [for a billion different reasons](https
 ### Are you going to add video view increment?
 
 No.
+
+### Do i have to add a sleep() after each request?
+
+See [issue 1710](https://github.com/mgp25/Instagram-API/issues/1710)
