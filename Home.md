@@ -44,7 +44,7 @@ Here is explained basic concepts about how to use the API. All documentation abo
 	* [All functions to interact with users](#all-functions-to-interact-with-users)
   * **[More functions](#more-functions)** 
 
-
+# Getting started
 
 ## Constructor
 
