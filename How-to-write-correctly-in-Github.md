@@ -2,13 +2,13 @@ This guide will help you in how to write correctly in Github:
 
 ### Posting code:
 
-```
+<pre>
 ```php
 $a = "Hola!";
 echo $a;
-// Without the brackets below!
-[```]
 ```
+</pre>
+
 Result:
 
 ```php
@@ -17,12 +17,11 @@ echo $a;
 ```
 
 ### Posting errors/quotes:
+<pre>
 ```
-[```]
 This is a quote/error
-// Without the above and below brackets!
-[```]
 ```
+</pre>
 
 Result:
 
